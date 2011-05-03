@@ -1,0 +1,57 @@
+<?php
+$this->title = "Forum";
+$this->navigation = array('Gillen', htmlspecialchars($this->guild["guild_name"]));
+?>
+<h3 class="bannerHeader">Nuvarande forum</h3>
+<table class="default">
+	<tr>
+		<th style="width: 35%;" class="left">Forum</th>
+		<th style="width: 35%;">Behörighet</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php foreach ($this->forums as $i => $forum): ?>
+		<tr class="<?php echo ($i&1) == 0 ? "even" : "odd"; ?>">
+			<td class="left"><?php echo htmlspecialchars($forum["forum_name"]); ?></td>
+			<td><?php echo $forum["forum_guildlevel"]; ?></td>
+			<td>
+				&raquo; <a href="/guilds/<?php echo $this->guild["guild_id"]; ?>/forumedit?forumid=<?php echo $forum["forum_id"]; ?>">Redigera</a>
+				&raquo; <a href="javascript:confirmredir('Vill du verkligen radera det här forumet?', '/guilds/<?php echo $this->guild["guild_id"]; ?>/forumdeletecommit?forumid=<?php echo $forum["forum_id"]; ?>')">Ta bort</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+	
+<h3 class="bannerHeader">Nytt forum</h3>
+<div class="content">
+	<form method="post" action="/guilds/<?php echo $this->guild["guild_id"]; ?>/forumcreatecommit" class="stdForm">
+		<div class="field">
+			<label for="name">Namn</label>
+			<div class="textField">
+				<input type="text" id="name" name="name" size="50" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="description">Beskrivning</label>
+			<div class="textArea">
+				<textarea name="description" id="description" cols="50" maxlength="45" rows="5"></textarea>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="level">Behörighet</label>
+			<div class="textField">
+				<select name="level" id="level">
+					<option value="open">Öppet</option>
+					<option value="member">Medlem</option>
+					<option value="moderator">Moderator</option>
+					<option value="admin">Administratör</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Spara</button>
+		</div>
+	</form>
+</div>

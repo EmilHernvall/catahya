@@ -1,0 +1,22 @@
+<?php
+$this->title = "Beh&ouml;righeter";
+$this->navigation = array('Gillen', htmlspecialchars($this->guild["guild_name"]));
+$types = array("member" => "Medlem", "moderator" => "Moderator", "admin" => "Administrat&ouml;r");
+?>
+
+<div class="content">
+	<p style="margin-bottom: 10px;">
+		&Auml;ndra beh&ouml;righet f&ouml;r <?php echo $this->thisMember["member_alias"]; ?>.
+	</p>
+
+	<form method="post" action="/guilds/<?php echo $this->guild["guild_id"]; ?>/changelevelcommit?memberid=<?php echo $this->thisMember["member_id"]; ?>">
+		<label for="access">Beh&ouml;righet</label>
+		<select name="access" id="access">
+			<?php foreach ($this->levels as $level): ?>
+				<option <?php if ($level["level_id"] == $this->thisMember["level_id"]) echo 'selected="selected"'; ?> value="<?php echo $level["level_id"]; ?>"><?php echo htmlspecialchars($level["level_name"]); ?></option>
+			<?php endforeach; ?>
+		</select>
+
+		<input type="submit" value="&Auml;ndra" />
+	</form>
+</div>

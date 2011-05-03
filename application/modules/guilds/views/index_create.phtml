@@ -1,0 +1,33 @@
+<?php
+$this->title = "Skapa gille";
+$this->navigation = array("/guilds" => "Gillen", "/guilds/index/create" => "Skapa");
+?>
+
+<div class="content">
+	<form method="post" action="/guilds/index/createcommit" class="stdForm">
+		<div class="field">
+			<label for="name">Namn</label>
+			<div class="textField">
+				<input type="text" name="name" id="name" maxlength="100" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="requirements">Krav</label>
+			<div class="textArea">
+				<textarea name="requirements" id="requirements" rows="5" cols="50"></textarea>
+			</div>
+		</div>
+			
+		<div class="field">
+			<label for="description">Beskrivning</label>
+			<div class="textArea">
+				<textarea name="description" id="description" rows="10" cols="50"></textarea>
+			</div>
+		</div>
+			
+		<div class="button">
+			<button type="submit">Skicka förfrågan</button>
+		</div>
+	</form>
+</div>

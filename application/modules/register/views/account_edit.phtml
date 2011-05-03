@@ -1,0 +1,78 @@
+<?php
+$this->title = "Korrigera felaktiga uppgifter";
+?>
+<div class="content">
+	<?php if (!$this->member["auditlog_message"]): ?>
+		Vår granskning har visat att dina uppgifter var felaktigt ifyllda!
+	<?php else: ?>
+		<?php echo $this->member["auditlog_message"]; ?>
+	<?php endif; ?>
+</div>
+
+<div class="content">
+
+	<form method="post" action="/register/account/editCommit" class="stdForm">
+
+		<div class="field">
+			<label for="email">E-post</label>
+			<div class="textField">
+				<input type="text" name="email" id="email" value="<?php echo htmlspecialchars($this->member["member_email"]); ?>" />
+			</div>
+		</div>
+		
+		
+		<div class="field">
+			<label for="firstname">Förnamn</label>
+			<div class="textField">
+				<input type="text" name="firstname" id="firstname" value="<?php echo htmlspecialchars($this->member["member_firstname"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="surname">Efternamn</label>
+			<div class="textField">
+				<input type="text" name="surname" id="surname" value="<?php echo htmlspecialchars($this->member["member_surname"]); ?>" />
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="address">Gatuadress</label>
+			<div class="textField">
+				<input type="text" name="address" id="address" value="<?php echo htmlspecialchars($this->member["member_address"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="zipcode">Postnummer</label>
+			<div class="textField">
+				<input type="text" name="zipcode" id="zipcode" value="<?php echo htmlspecialchars($this->member["member_zipcode"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="city">Ort</label>
+			<div class="textField">
+				<input type="text" name="city" id="city" value="<?php echo htmlspecialchars($this->member["member_city"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="country">Land</label>
+			<div class="textField">
+				<input type="text" name="country" id="country" value="<?php echo htmlspecialchars($this->member["member_country"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="phone">Telefonnummer</label>
+			<div class="textField">
+				<input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($this->member["member_phonenr"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Skicka till granskning</button>
+		</div>
+		
+	</form>
+</div>

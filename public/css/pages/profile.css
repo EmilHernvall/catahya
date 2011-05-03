@@ -1,0 +1,51 @@
+.shade {
+	background-image: url(/images/skuggor/19.gif);
+	background-repeat: no-repeat;
+	background-position: 5% 10%;
+}
+.race_job {
+	float: left;
+	margin: 5px;
+	font-size: 12px;
+}
+.onlinestatus {
+	float: right;
+	margin: 5px;
+	font-size: 12px;
+	font-weight: bold;
+}
+.info {
+	clear: both;
+	padding-top: 10px;
+}
+.info_heading {
+	clear: both;
+	display: block;
+	width: 100px;
+	float: left;
+	font-weight: bold;
+	text-align: right;
+	margin-top: 2px;
+	padding-right: 10px;
+}
+.info_content {
+	display: block;
+	width: 250px;
+	float: left;
+	margin-top: 2px;
+}
+.member_image {
+	padding: 3px;
+	text-align: center;
+}
+ul.status {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+ul.status li {
+	display: block;
+	float: left;
+	margin-right: 15px;
+	font-weight: bold;
+}

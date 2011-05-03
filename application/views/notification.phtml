@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Catahya</title>
+		<script type="text/javascript" src="/js/sendmsg.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				document.getElementById('msg').focus();
+			}
+		</script>
+	</head>
+	
+	<body>
+		<h2>Catahya</h2>
+		
+		<p>
+			<?php echo $this->body; ?>
+		</p>
+		
+		<?php if (isset($this->close)): ?>
+			<p>
+				<a href="javascript:window.close()">Stäng fönstret</a>
+			</p>
+		<?php endif; ?>
+	</body>
+</html>

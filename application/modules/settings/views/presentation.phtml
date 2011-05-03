@@ -1,0 +1,43 @@
+<?php
+$this->css[] = '/css/pages/profile.css';
+$this->navigation = array('Inställningar');
+$this->title = 'Presentation';
+?>
+<?php flash(); ?>
+<div class="content">
+
+	<!--<script language="javascript" type="text/javascript" src="/js/tiny_mce/tiny_mce_gzip.php"></script>
+	<script language="javascript" type="text/javascript">
+		tinyMCE.init({
+			mode : "textareas",
+			theme : "advanced",
+			plugins : "table,paste,contextmenu",
+			//theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,formatselect,fontselect,fontsizeselect,forecolor",
+			//theme_advanced_buttons2_add_before: "cut,copy,paste,pastetext,pasteword,separator",
+			//theme_advanced_buttons3_add_before : "tablecontrols,separator",
+			theme_advanced_toolbar_location : "top",
+			theme_advanced_toolbar_align : "left",
+			theme_advanced_path_location : "bottom",
+			plugin_insertdate_dateFormat : "%Y-%m-%d",
+			plugin_insertdate_timeFormat : "%H:%M:%S",
+			entity_encoding : "numeric",
+			language: 'sv',
+			external_image_list_url: "../scripts/image_list.php",
+			extended_valid_elements : "a[name|href|target|title],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style],dl[class|style],dd[class|style}],dt[class|style]"
+		});
+	</script>-->
+
+	<form method="post" action="/settings/presentation/presentationcommit" class="stdForm">
+		<div class="field">
+			<label for="presentation">Presentation</label>
+			<div class="textArea">
+				<textarea rows="20" name="presentation" id="presentation"><?php echo htmlspecialchars($this->member['member_presentation']); ?></textarea>
+			</div>
+		</div>
+
+		<div class="button">
+			<button type="submit">Spara</button>		
+		</div>
+	</form>
+
+</div>

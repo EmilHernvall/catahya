@@ -1,0 +1,52 @@
+<?php
+$this->title = 'Behörigheter';
+$this->navigation = array('Administration', 'Behörigheter'); 
+?>
+<style type="text/css">
+form label {
+	display: block;
+}
+</style>
+
+<div class="content">
+
+	<form method="post" action="/admin/access/accesseditcommit<?php echo $this->access?'?accessid='.$this->access['access_id']:''; ?>" class="stdForm">
+		<div class="field">
+			<label for="name">Namn</label>
+			<div class="textField">
+				<input type="text" name="name" id="name" size="40" value="<?php echo $this->access?htmlspecialchars($this->access['access_name']):''; ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="title">Titel</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" size="40" value="<?php echo $this->access?htmlspecialchars($this->access['access_title']):''; ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="object">Objekt</label>
+			<div class="textField">
+				<select name="object" id="object" style="width: 300px;">
+					<option value="0"></option>
+					<?php foreach ($this->objects as $object): ?>
+						<option value="<?php echo $object['object_id'] ?>"<?php if ($this->access && $this->access['object_id'] == $object['object_id']) echo ' selected="selected"'; ?>><?php echo htmlspecialchars($object['object_title']); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="description">Beskrivning</label>
+			<div class="textArea">
+				<textarea name="description" id="description" rows="10"><?php echo $this->access?htmlspecialchars($this->access['access_description']):''; ?></textarea>
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Ändra</button>
+		</div>
+	</form>
+
+</div>

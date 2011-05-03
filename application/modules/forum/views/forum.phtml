@@ -1,0 +1,82 @@
+<?php
+$this->title = htmlspecialchars($this->forum['forum_name']);
+$this->navigation = array('Forum');
+
+$writePermission = Catahya_Access::hasPermission($this->forum['access_id'], 
+	Catahya_Permission_Forum::WRITE, $this->forum['access_defaultpermission']);
+?>
+<?php if( $this->forum['forum_threadcount'] == 0 ): ?>
+	<div class="content" style="text-align: center; padding: 20px; font-size: 1.2em;">
+		Inga trådar skapade. :(
+	</div>
+<?php else: ?>	
+	<div class="content" style="font-style: italic;">
+			<?php echo outputFormat($this->forum['forum_description'], false); ?>
+	</div>
+
+	<table class="default">
+		<tr>
+			<th class="left">Ämne</th>
+			<th style="width: 35px;">Svar</th>
+			<th style="width: 150px;">Avsändare</th>
+			<th style="width: 150px;">Senaste svar</th>
+		</tr>
+		<?php foreach ($this->threads as $i => $thread) : ?>
+			<tr style="background-color: <?php echo ($i&1) == 0 ? '#C0D4B0' : '#FFF'; ?>; font-weight: <?php if ($thread["read_timestamp"] < $thread["thread_lasttimestamp"]) echo 'bold'; else echo 'normal'; ?>">
+				<td class="left">
+					<?php if ($thread["thread_sticky"]): ?>[K]<?php endif; ?>
+					<?php if ($thread["thread_locked"]): ?>[L]<?php endif; ?>
+					<a href="/forum/thread/<?php echo $thread['thread_id']; ?>/<?php echo safeAlias($thread['thread_title']); ?>?last=<?php echo $thread["read_timestamp"]; ?>"><?php echo htmlspecialchars($thread['thread_title']); ?></a>
+				</td>
+				<td class="replies"><?php echo $thread['thread_replycount']; ?></td>
+				<td class="author">
+					<a href="/profile/<?php echo $thread['member_flatalias']; ?>"><?php echo $thread['member_alias']; ?></a>
+				</td>
+				<td class="latest">
+					<?php if($thread['thread_lasttimestamp'] != 0): ?>
+						<a href="/forum/thread/<?php echo $thread['thread_id']; ?>/<?php echo safeAlias($thread['thread_title']); ?>?last=<?php echo $thread["read_timestamp"]; ?>&page=<?php echo ceil($thread["thread_replycount"]/50); ?>"><?php echo standardDate($thread['thread_lasttimestamp']); ?></a><br />
+						Av <a href="/profile/<?php echo $thread['thread_lastflatalias']; ?>"><?php echo $thread['thread_lastalias']; ?></a>
+					<?php else: ?>
+						<?php echo standardDate($thread['thread_lasttimestamp']); ?><br />
+						Av Ingen
+					<?php endif ?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+
+	<div class="content" style="text-align: right;">
+		<div>
+		Sida <?php echo $this->pageCurrent; ?> av <?php echo $this->pageTotal; ?>
+		</div>
+		<dl class="pager" style="margin: 0;">
+			<?php for($i = 1; $i <= $this->pageTotal; $i++): ?>
+				<dd style="display: inline; margin: 0; <?php if ($this->pageCurrent == $i) echo 'font-weight: bold'; ?>"><a href="/forum/<?php echo $this->forum['forum_id']; ?>?page=<?php echo $i; ?>"><?php echo $i; ?></a></dd>
+			<?php endfor; ?>
+		</dl>
+	</div>
+<?php endif; ?>
+	
+<?php 
+if ($_SESSION['online'] && ($writePermission || $this->forum['guild_id'])): ?>
+<h3 class="bannerHeader">Skriv nytt</h3>
+<div class="content">
+	<form action="/forum/thread/postCommit?forumid=<?php echo $this->forum['forum_id']; ?>" method="POST" class="stdForm">
+		<div class="field">
+			<label for="title">Ämne</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" size="50" maxlength="100" />
+			</div>
+		</div>
+		<div class="field">
+			<label for="text">Text</label>
+			<div class="textArea">
+				<textarea name="text" id="text" cols="50" rows="10"></textarea>
+			</div>
+		</div>		
+		<div class="button">
+			<button type="submit">Skicka</button>
+		</div>
+	</form>
+</div>
+<?php endif; ?>

@@ -1,0 +1,39 @@
+<?php
+$this->title = 'Ändra forum';
+$this->navigation = array('Gillen', htmlspecialchars($this->guild["guild_name"]));
+?>
+<div class="content">
+	
+	<form method="post" action="/guilds/<?php echo $this->forum["guild_id"]; ?>/forumeditcommit?forumid=<?php echo $this->forum["forum_id"]; ?>" class="stdForm">
+		<div class="field">
+			<label for="name">Namn</label>
+			<div class="textField">
+				<input type="text" name="name" id="name" size="40" value="<?php echo htmlspecialchars($this->forum['forum_name']); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="description">Beskrivning</label>
+			<div class="textArea">
+				<textarea name="description" id="description" cols="40" rows="10"><?php echo htmlspecialchars($this->forum['forum_description']); ?></textarea>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="level">Behörighet</label>
+			<div class="textField">
+				<select name="level" id="level">
+					<option value="open"<?php if ($this->forum['forum_guildlevel'] == "open") echo ' selected="selected"'; ?>>Öppet</option>
+					<option value="member"<?php if ($this->forum['forum_guildlevel'] == "member") echo ' selected="selected"'; ?>>Medlem</option>
+					<option value="moderator"<?php if ($this->forum['forum_guildlevel'] == "moderator") echo ' selected="selected"'; ?>>Moderator</option>
+					<option value="admin"<?php if ($this->forum['forum_guildlevel'] == "admin") echo ' selected="selected"'; ?>>Administratör</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Ändra</button>
+		</div>
+	</form>
+
+</div>

@@ -1,0 +1,19 @@
+<?php
+if ($this->name == 'index') {
+	$this->title = htmlspecialchars($this->wiki['wiki_title']);
+	$this->navigation = array(htmlspecialchars($this->wiki['wiki_title']));
+} else {
+	$this->title = htmlspecialchars($this->page?$this->page['page_title']:$this->pageName);
+	$this->navigation = array($this->wiki['wiki_title'], htmlspecialchars($this->page?$this->page['page_title']:$this->pageName));
+}
+?>
+
+<?php if (!$this->page): ?>
+<div class="content">
+	Denna sidan är inte skapad än. :(
+</div>
+<?php else: ?>
+	<?php echo wiki_format($this->page['page_text'], $this->wiki["wiki_name"]); ?>
+<?php endif; ?>
+
+<div class="clear">&nbsp;</div>

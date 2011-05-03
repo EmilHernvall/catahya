@@ -1,0 +1,57 @@
+<?php
+$this->title = 'Gillen';
+$this->navigation = array('Administration','Gillen');
+?>
+
+<h3 class="bannerHeader">F&ouml;reslagna gillen</h3>
+<?php flash(); ?>
+<table class="default">
+	<tr>
+		<th class="left" style="width: 40%;">Namn</th>
+		<th style="width: 30%;">Skapare</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php foreach ($this->guilds as $i => $guild): 
+		if ($guild["guild_confirmed"] > 0) continue; ?>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left"><?php echo htmlspecialchars($guild["guild_name"]); ?></td>
+			<td><a href="/profile/<?php echo $guild["member_flatalias"]; ?>"><?php echo $guild["member_alias"]; ?></a></td>
+			<td>
+				&raquo; Redigera
+				&raquo; <a href="/admin/guild/confirmcommit?guildid=<?php echo $guild["guild_id"]; ?>">Godk&auml;nn</a>
+				&raquo; <a href="/admin/guild/rejectcommit?guildid=<?php echo $guild["guild_id"]; ?>">Avsl&aring;</a>
+			</td>
+		</tr>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left" colspan="3">
+				<span style="font-weight: bold;">Beskrivning:</span>
+				<?php echo outputFormat($guild["guild_description"], false); ?>
+			</td>
+		</tr>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left" colspan="3">
+				<span style="font-weight: bold;">Krav:</span>
+				<?php echo outputFormat($guild["guild_description"], false); ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+<br />
+
+<h3 class="bannerHeader">Godk&auml;nda gillen</h3>
+<table class="default">
+	<tr>
+		<th class="left" style="width: 40%;">Namn</th>
+		<th style="width: 30%;">Skapare</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php foreach ($this->guilds as $i => $guild):
+		if ($guild["guild_confirmed"] == 0) continue; ?>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left"><?php echo htmlspecialchars($guild["guild_name"]); ?></td>
+			<td><a href="/profile/<?php echo $guild["member_flatalias"]; ?>"><?php echo $guild["member_alias"]; ?></a></td>
+			<td>G&aring; till</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+

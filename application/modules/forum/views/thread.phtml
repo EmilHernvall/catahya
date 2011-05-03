@@ -1,0 +1,180 @@
+<?php 
+$this->title = htmlspecialchars($this->thread['thread_title']);
+$this->navigation = array("/forum" => 'Forum', "/forum/" . $this->thread["forum_id"] => htmlspecialchars($this->thread['forum_name'])); 
+
+if ($this->guildLevel) {
+	$replyPermission = true;
+	
+	if ($this->guildLevel != "member") {
+		$deletePermission = true;
+		$editPermission = true;
+		$movePermission = true;
+	} else {
+		$deletePermission = false;
+		$editPermission = false;
+		$movePermission = false;
+	}
+} else {
+	$replyPermission = Catahya_Access::hasPermission($this->thread['access_id'], 
+		Catahya_Permission_Forum::REPLY, $this->thread['access_defaultpermission']);
+	$deletePermission = Catahya_Access::hasPermission($this->thread['access_id'], 
+		Catahya_Permission_Forum::DELETE, $this->thread['access_defaultpermission']);
+	$editPermission = Catahya_Access::hasPermission($this->thread['access_id'], 
+		Catahya_Permission_Forum::EDIT, $this->thread['access_defaultpermission']);
+	$movePermission = Catahya_Access::hasPermission($this->thread['access_id'], 
+		Catahya_Permission_Forum::MOVE, $this->thread['access_defaultpermission']);
+}
+?>
+
+<style type="text/css">
+dt {
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+dd {
+	margin: 0;
+}
+</style>
+
+<div style="padding: 5px 10px 5px 10px;">
+	<div style="border-bottom: 0px solid #C0D4B0;">
+		<div style="float: left; width: 20%;">
+			#0
+		</div>
+		<div style="float: right; width: 60%; text-align: right;">
+			<?php if ($deletePermission || $this->thread["member_id"] == $_SESSION["id"]): ?>
+				&raquo; <a href="javascript:confirmredir('Vill du verkligen radera den här tråden?', '/forum/thread/deletecommit?threadid=<?php echo $this->thread["thread_id"]; ?>')">Ta bort</a>
+			<?php endif; ?>
+			<?php if ($editPermission || $this->thread["member_id"] == $_SESSION["id"]): ?>
+				&raquo; <a href="/forum/thread/edit?threadid=<?php echo $this->thread["thread_id"]; ?>">Redigera</a>
+			<?php endif; ?>
+			<?php if ($editPermission): ?>
+				&raquo; <a href="/forum/thread/flagcommit?threadid=<?php echo $this->thread["thread_id"]; ?>&flag=sticky"><?php echo !$this->thread["thread_sticky"] ? "Klistra" : "Avklistra"; ?></a>
+				&raquo; <a href="/forum/thread/flagcommit?threadid=<?php echo $this->thread["thread_id"]; ?>&flag=locked"><?php echo !$this->thread["thread_locked"] ? "Lås" : "Lås upp"; ?></a>
+			<?php endif; ?>
+			<?php if ($movePermission): ?>
+				&raquo; <a href="/forum/thread/move?threadid=<?php echo $this->thread["thread_id"]; ?>">Flytta</a>
+			<?php endif; ?>
+		</div>
+		<br style="clear: both;"/>
+	</div>
+	<div style="width: 20%; float: left; padding: 5px 0 20px 0;">
+		<dl style="margin: 0; padding: 0;">
+			<dt>
+				<a href="/profile/<?php echo $this->thread['member_flatalias']; ?>"><?php echo $this->thread['member_alias']; ?></a>
+			</dt>
+			<?php if ($this->thread['member_photo'] != "0.jpg"): ?>
+			<dd>
+				<img src="/userdata/avatars/100/<?php echo $this->thread['member_photo']; ?>" style="width: 75px;" />
+			</dd>
+			<?php endif; ?>
+			<dd style="font-size: 9pt;">
+				<?php echo standardDate($this->thread['thread_timestamp']); ?>
+			</dd>
+		</dl>
+	</div>
+	<div style="width: 80%; float: right; padding: 5px 0 20px 0;">
+	
+		<?php echo outputFormat($this->thread['thread_text']); ?>
+	</div>
+	
+	<br style="clear: both;" />
+</div>
+
+<?php if ($this->pageTotal > 1): ?>
+	<div class="content" style="text-align: right;">
+		<div>
+			Sida <?php echo $this->pageCurrent; ?> av <?php echo $this->pageTotal; ?>
+		</div>
+		<dl class="pager" style="margin: 0;">
+			<?php for($i = 1; $i <= $this->pageTotal; $i++): ?>
+				<dd style="display: inline; margin: 0; <?php if ($this->pageCurrent == $i) echo 'font-weight: bold'; ?>"><a href="/forum/thread/<?php echo $this->thread['thread_id']; ?>/<?php echo safeAlias($this->thread['thread_title']); ?>?page=<?php echo $i; ?>&last=<?php echo $this->last; ?>"><?php echo $i; ?></a></dd>
+			<?php endfor; ?>
+		</dl>
+	</div>
+<?php endif; ?>
+
+<?php if (count($this->replies)): ?>
+	<h3 class="bannerHeader">Svar</h3>
+	<?php foreach ($this->replies as $i => $reply): ?>
+		<div style="padding: 5px 10px 5px 10px; background-color: <?php echo ($i&1) == 0 ? '#C0D4B0' : '#FFF'; ?>">
+			<?php if ($reply["reply_deleted"]): ?>
+				Inlägg #<?php echo (($this->pageCurrent-1)*$this->pageSize) + $i+1; ?> har raderats.
+			<?php else: ?>
+				<div style="border-bottom: 0px solid <?php echo ($i&1) == 1 ? '#C0D4B0' : '#FFF'; ?>;">
+					<div style="float: left; width: 20%; font-weight: bold;">
+						
+						<a href="/profile/<?php echo $reply['member_flatalias']; ?>"><?php echo $reply['member_alias']; ?></a>
+					</div>
+					<div style="float: right; width: 60%; text-align: right;">
+						<?php if ($deletePermission || $reply["member_id"] == $_SESSION["id"]): ?>
+							&raquo; <a href="javascript:confirmredir('Vill du verkligen radera det här inlägget?', '/forum/thread/deletereplycommit?replyid=<?php echo $reply["reply_id"]; ?>')">Ta bort</a>
+						<?php endif; ?>
+						<?php if ($editPermission || $reply["member_id"] == $_SESSION["id"]): ?>
+							&raquo; <a href="/forum/thread/editreply?replyid=<?php echo $reply["reply_id"]; ?>">Redigera</a>
+						<?php endif; ?>
+						&nbsp; 
+						#<?php echo (($this->pageCurrent-1)*$this->pageSize) + $i+1; ?>
+					</div>
+					<br style="clear: both;"/>
+				</div>
+				<div style="width: 83px; float: left; padding: 5px 0 5px 0; ">
+					<dl style="margin: 0; padding: 0;">
+						<?php if ($reply['member_photo'] != "0.jpg"): ?>
+						<dd>
+							<img src="/userdata/avatars/100/<?php echo $reply['member_photo']; ?>" style="width: 75px;" />
+						</dd>
+						<?php endif; ?>
+						<dd style="font-size: 9pt;">
+							<?php echo standardDate($reply['reply_timestamp'], false); ?>
+						</dd>
+						<dd style="font-size: 9pt;">
+							<?php echo date("H:i", $reply['reply_timestamp']); ?>
+						</dd>
+					</dl>
+				</div>
+				<div style="width: 520px; float: right; padding: 5px 0 5px 0;">
+					<?php echo outputFormat($reply['reply_text']); ?>
+				</div>
+				
+				<div class="clear">&nbsp;</div>
+			<?php endif; ?>
+		</div>
+	<?php endforeach; ?>
+<?php endif; ?>
+
+<?php if ($this->pageTotal > 1): ?>
+	<div class="content" style="text-align: right;">
+		<div>
+			Sida <?php echo $this->pageCurrent; ?> av <?php echo $this->pageTotal; ?>
+		</div>
+		<dl class="pager" style="margin: 0;">
+			<?php for($i = 1; $i <= $this->pageTotal; $i++): ?>
+				<dd style="display: inline; margin: 0; <?php if ($this->pageCurrent == $i) echo 'font-weight: bold'; ?>"><a href="/forum/thread/<?php echo $this->thread['thread_id']; ?>/<?php echo safeAlias($this->thread['thread_title']); ?>?page=<?php echo $i; ?>&last=<?php echo $this->last; ?>"><?php echo $i; ?></a></dd>
+			<?php endfor; ?>
+		</dl>
+	</div>
+<?php endif; ?>
+
+<?php 
+if ($_SESSION['online'] && ($replyPermission || $this->thread["guild_id"])): ?>
+<h3 class="bannerHeader">Besvara</h3>
+<div class="content">
+	<?php if ($this->thread["thread_locked"]): ?>
+		Den här tråden är låst!
+	<?php else: ?>
+		<form method="post" action="/forum/thread/postReplyCommit?threadid=<?php echo $this->thread['thread_id']; ?>" class="stdForm">
+			<div class="field">
+				<label for="text">Text</label>
+				<div class="textArea">
+					<textarea name="text" id="text" rows="10"></textarea>
+				</div>
+			</div>					
+			
+			<div class="button">
+				<button type="submit">Skicka</button>
+			</div>
+		</form>
+		<?php endif; ?>
+</div>
+<?php endif; ?>

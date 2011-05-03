@@ -1,0 +1,24 @@
+<?php
+$this->title = 'Inloggade medlemmar';
+$this->navigation = array('Community');
+?>
+
+<table class="default">
+	<tr>
+		<th class="left">Namn</th>
+		<th>Online sedan</th>
+		<th>Senaste aktivitet</th>
+	</tr>
+
+	<?php foreach ($this->members as $i => $member): ?>
+		<tr class="<?php echo ($i&1) == 0 ? "even" : "odd"; ?>">
+			<td class="left">
+				<?php 
+				printf('<a href="/profile/%s">%s</a>', $member["member_flatalias"], $member["member_alias"]); 
+				?>
+			</td>
+			<td><?php echo date("H:i", $member["member_lastlogin"]); ?></td>
+			<td><?php echo date("H:i", $member["member_realactivity"]); ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>

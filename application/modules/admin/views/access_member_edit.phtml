@@ -1,0 +1,30 @@
+<?php
+$this->title = $this->member['member_alias'];
+$this->navigation = array('Administration', 'Behörigheter'); 
+?>
+
+	
+<form method="post" action="/admin/access/membereditcommit<?php echo $this->member?'?memberid='.$this->member['member_id']:''; ?>">
+	
+	<div class="content">
+		Välj de grupper som <?php echo $this->member['member_alias']; ?> ska tillhöra.
+	</div>
+	
+	<table class="default">
+		<tr>
+			<th class="left">&nbsp;</th>
+			<th>Grupp</th>
+		</tr>
+		<?php foreach ($this->groups as $i => $group): ?>
+			<tr class="<?php echo ($i&1) == 0 ? "even": "odd"; ?>">
+				<td class="left"><input type="checkbox" name="group[<?php echo $group['group_id']; ?>]" value="1" <?php if ($group['member_id']) echo 'checked="checked" '; ?>/></td>
+				<td><?php echo htmlspecialchars($group['group_title']); ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+		
+	<div class="content">
+		<input type="submit" value="Ändra" />
+	</div>
+</form>
+

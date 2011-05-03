@@ -1,0 +1,42 @@
+<?php
+$this->title = $this->text['text_title'];
+$this->navigation = array('Administration', 'Text', 'Publicera'); 
+?>
+<div class="content">
+	<p>
+		Nedan kan du ange publiceringsdatum för texten. Genom att göra det
+		intygar du att du korrekturläst efter bästa förmåga och att
+		texten har en bild om det är tillämpligt för text-typen.
+	</p>
+	
+	<form method="post" action="/admin/text/publishcommit?textid=<?php echo $this->text["text_id"]; ?>" class="stdForm">
+	
+		<?php if ($this->publishedBy): ?>
+			<div class="field">
+				<label for="published">Publicerad av</label>
+				<div class="textField">
+					<a href="/profile/<?php echo $this->publishedBy["member_flatalias"]; ?>"><?php echo $this->publishedBy["member_alias"]; ?></a>
+				</div>
+			</div>
+		<?php endif; ?>
+	
+		<div class="field">
+			<label for="published">Publicerad</label>
+			<div class="textField">
+				<input type="checkbox" name="published" id="published" value="1" <?php if ($this->text["text_published"] == "1") echo 'checked="checked"'; ?>/> 
+				<label for="published" style="display: inline; font-weight: normal; float: none;">Ja</label>
+			</div>
+		</div>
+	
+		<div class="field">
+			<label for="timestamp">Publiceringsdatum</label>
+			<div class="textField">
+				<input type="text" name="timestamp" id="timestamp" value="<?php echo date("Y-m-d", $this->text["text_timestamp"] ? $this->text["text_timestamp"] : time()); ?>" />
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Publicera</button>
+		</div>
+	</form>
+</div>

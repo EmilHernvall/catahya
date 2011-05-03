@@ -1,0 +1,37 @@
+<?php
+$this->css[] = '/css/pages/profile.css';
+$this->navigation = array('Community', $this->member['member_alias']);
+$this->title = "Karakt&auml;r";
+?>
+
+<div class="content">
+
+	<div class="infoBox">
+	<h4>Karaktär</h4>
+     <dl class="stats">
+         <dt>Ras: </dt>
+         <dd>
+             <?php echo htmlspecialchars($this->member['character_race']); ?>
+         </dd>
+         <dt>Klass: </dt>
+         <dd>
+             <?php echo htmlspecialchars($this->member['character_class']); ?>
+         </dd>
+         <dt>Ståndpunkt: </dt>
+         <dd>
+             <?php echo htmlspecialchars($this->member['character_alignment']); ?>
+         </dd>
+     </dl>
+	</div>     
+
+     <div class="presentation">
+         <?php if($this->member['character_description']): ?>
+             <?php echo outputFormat($this->member['character_description']); ?>
+         <?php else: ?>
+             -
+         <?php endif;?>
+         <br class="break" />
+     </div>
+	     
+</div>
+    

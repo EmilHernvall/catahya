@@ -1,0 +1,16 @@
+<ul class="navMenu">
+	<li>
+		<a href="/message/index">Index</a>
+		<?php if (isset($this->folders)): ?>
+			<ul class="subMenu">
+				<?php foreach ($this->folders as $folder): ?>
+					<li>
+						<a href="/message/index?folderid=<?php echo $folder['folder_id']; ?>"><?php echo htmlspecialchars($folder['folder_name']); ?></a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+	</li>
+	<li><a href="/message/thread/write">Skriv nytt</a></li>
+	<li>Ny mapp</li>
+</ul>

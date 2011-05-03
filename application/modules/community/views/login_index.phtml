@@ -1,0 +1,24 @@
+<?php
+$this->title = 'Senast inloggade';
+$this->navigation = array('Community');
+?>
+
+<table class="default">
+	<tr>
+		<th class="left">Namn</th>
+		<th>Stad</th>
+		<th>Inloggad</th>
+	</tr>
+
+	<?php foreach ($this->members as $i => $member): ?>
+		<tr class="<?php echo ($i&1) == 0 ? "even" : "odd"; ?>">
+			<td class="left">
+				<?php 
+				printf('<a href="/profile/%s">%s</a>', $member["member_flatalias"], $member["member_alias"]); 
+				?>
+			</td>
+			<td><?php echo $member["member_city"]; ?></td>
+			<td><?php echo standardDate($member["member_lastlogin"]); ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>

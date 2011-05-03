@@ -1,0 +1,57 @@
+<?php
+$this->title = 'Ändra forum';
+$this->navigation = array('Administration', 'Forum'); 
+?>
+<style type="text/css">
+form label {
+	display: block;
+	font-weight: bold;
+}
+</style>
+
+<div class="content">
+	
+	<form method="post" action="/admin/forum/editCommit<?php if ($this->forum) echo '?forumid='.$this->forum['forum_id']; ?>" class="stdForm">
+		<div class="field">
+			<label for="name">Namn</label>
+			<div class="textField">
+				<input type="text" name="name" id="name" size="40" value="<?php echo $this->forum ? htmlspecialchars($this->forum['forum_name']) : ''; ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="description">Description</label>
+			<div class="textArea">
+				<textarea name="description" id="description" cols="40" rows="10"><?php echo $this->forum ? htmlspecialchars($this->forum['forum_description']) : ''; ?></textarea>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="category">Kategori</label>
+			<div class="textField">
+				<select name="category" id="category" style="width: 300px;">
+					<?php foreach ($this->categories as $category): ?>
+						<option value="<?php echo $category['category_id']; ?>"<?php if ($this->forum && $category['category_id'] == $this->forum['category_id']) echo ' selected="selected"'; ?>><?php echo htmlspecialchars($category['category_name']); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="access">Behörighet</label>
+			<div class="textField">
+				<select name="access" id="access" style="width: 300px;">
+					<option value="0"></option>
+					<?php foreach ($this->access as $access): ?>
+						<option value="<?php echo $access['access_id']; ?>"<?php if ($this->forum && $access['access_id'] == $this->forum['access_id']) echo ' selected="selected"'; ?>><?php echo htmlspecialchars($access['access_title']); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Ändra</button>
+		</div>
+	</form>
+
+</div>

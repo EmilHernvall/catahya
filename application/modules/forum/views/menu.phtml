@@ -1,0 +1,18 @@
+<ul class="navMenu">
+	<?php 
+	$last = 0;
+	foreach ($this->menuForums as $i => $forum): ?>
+		<li<?php if ($forum["category_id"] != $last && $i != 0) echo ' style="margin-top: 10px;"'; ?>><a href="/forum/<?php echo $forum['forum_id']; ?>"><?php echo htmlspecialchars($forum['forum_name']); ?></a></li>
+	<?php 
+	$last = $forum["category_id"];
+	endforeach; ?>
+</ul>
+
+<?php foreach ($this->guildForums as $guildId => $guild): ?>
+	<h4 style="margin-top: 10px;"><?php echo htmlspecialchars($guild["name"]); ?></h4>
+	<ul class="navMenu">
+		<?php foreach ($guild["forums"] as $id => $forum): ?>
+			<li><a href="/forum/<?php echo $id; ?>"><?php echo htmlspecialchars($forum); ?></a></li>
+		<?php endforeach; ?>
+	</ul>
+<?php endforeach; ?>

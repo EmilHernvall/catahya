@@ -1,0 +1,71 @@
+<?php
+$this->navigation = array('/chronicles' => 'Kr&ouml;nikor');
+$this->title = htmlspecialchars($this->text['text_title']);
+$errorTexts = array('title' => 'Du måste ange en titel!',
+                    'text' => 'Du måste skriva något!');
+?>
+<style type="text/css">
+form label {
+	display: block;
+}
+</style>
+
+<div class="content" style="text-align: justify;">
+	
+	<div style="font-style: italic;">
+		Skriven <?php echo standardDate($this->text["text_timestamp"]); ?> av <a href="/profile/<?php echo $this->text["member_flatalias"]; ?>"><?php echo $this->text["member_alias"]; ?></a>.
+	</div>
+	
+	<?php if ($this->text["text_showpretext"]): ?>
+		<div style="font-weight: bold; margin-bottom: 10px;">
+			<?php echo outputFormat($this->text['text_pretext']); ?>
+		</div>
+	<?php endif; ?>
+	
+	<div>
+		<?php echo outputFormat($this->text['text_text']); ?>
+	</div>
+
+</div>
+
+<?php if (count($this->comments)): ?>
+	<h3 class="bannerHeader" style="clear: both; margin-top: 20px;">Kommentarer</h3>
+	<?php foreach ($this->comments as $i => $comment): ?>
+	<div style="padding: 5px 200px 5px 10px; background-color: <?php echo !($i&1)?'#C0D4B0':'#FFF'; ?>;">
+		<h4>#<?php echo $i+1; ?> - <?php echo htmlspecialchars($comment['comment_title']); ?></h4>
+		<span style="font-style: italic;">
+			<?php echo standardDate($comment['comment_timestamp'], false); ?> 
+			av 
+			<a href="/profile/<?php echo $comment['member_flatalias']; ?>">
+				<?php echo $comment['member_alias']; ?>
+			</a>
+		</span>
+		<p>
+			<?php echo outputFormat($comment['comment_text'], false); ?>
+		</p>
+	</div>
+	<?php endforeach; ?>
+<?php endif; ?>
+
+<?php if ($_SESSION['online']): ?>
+<h3 class="bannerHeader">Kommentera</h3>
+<div class="content">
+	<form method="post" action="/chronicles/index/commentCommit?textid=<?php echo $this->textId; ?>" class="stdForm">
+		<div class="field">
+			<label for="title">Ämne</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" maxlength="100" size="40"/>
+			</div>
+		</div>
+		<div class="field">
+			<label for="text">Text</label>
+			<div class="textField">
+				<textarea name="text" id="text" cols="40" rows="10"></textarea>
+			</div>		
+		</div>		
+		<div class="button">
+			<button type="submit">Skicka</button>
+		</div>
+	</form>
+</div>
+<?php endif; ?>

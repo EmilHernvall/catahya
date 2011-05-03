@@ -1,0 +1,19 @@
+<?php 
+$this->title = "Redigera svar";
+$this->navigation = array("/forum" => 'Forum', "/forum/" . $this->reply["forum_id"] => $this->reply['forum_name']); 
+?>
+<div class="content">
+	<form method="post" action="/forum/thread/editreplycommit?replyid=<?php echo $this->reply['reply_id']; ?>" class="stdForm">
+		<div class="field">
+			<label for="text">Text</label>
+			<div class="textArea">
+				<textarea name="text" id="text" rows="10"><?php echo htmlspecialchars($this->reply['reply_text']); ?></textarea>
+			</div>
+		</div>					
+		
+		<div class="button">
+			<button type="submit">Skicka</button>
+		</div>
+	</form>
+	<br />
+</div>

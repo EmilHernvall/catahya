@@ -1,0 +1,38 @@
+<?php
+$this->title = $this->type["type_title"];
+$this->navigation = array("Alster");
+
+?>
+<table class="default">
+	<tr>
+		<th class="left">Titel</th>
+		<th style="width: 100px;">F&ouml;rfattare</th>
+		<th style="width: 140px;">Datum</th>
+		<th style="width: 80px;">Typ</th>
+		<th style="width: 80px;">Spr&aring;k</th>
+	</tr>
+	<?php foreach ($this->artworks as $i => $artwork): ?>
+		<tr class="<?php echo ($i&1) == 0 ? "even": "odd"; ?>">
+			<td class="left"><?php printf('<a href="/artwork/%s/view/%d">%s</a>', $this->type["type_name"], $artwork["artwork_id"], htmlspecialchars($artwork["artwork_title"])); ?></td>
+			<td><?php printf('<a href="/profile/%s">%s</a>', $artwork["member_flatalias"], $artwork["member_alias"]); ?></td>
+			<td><?php echo standardDate($artwork["artwork_timestamp"]); ?></td>
+			<td><?php echo htmlspecialchars($this->subtypes[$artwork["subtype_id"]]); ?></td>
+			<td><?php echo htmlspecialchars($this->languages[$artwork["language_id"]]); ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+<?php if (count($this->artworks) == 0): ?>
+	<div style="padding: 20px; font-size: 1.2em; text-align: center;">
+		Inga texter h&auml;r &auml;nnu.
+	</div>
+<?php endif; ?>
+<div class="content" style="text-align: right;">
+	<div>
+	Sida <?php echo $this->pageCurrent; ?> av <?php echo $this->pageTotal; ?>
+	</div>
+	<dl class="pager" style="margin: 0;">
+		<?php for($i = 1; $i <= $this->pageTotal; $i++): ?>
+			<dd style="display: inline; margin: 0; <?php if ($this->pageCurrent == $i) echo 'font-weight: bold'; ?>"><a href="/artwork/<?php echo $this->type['type_name']; ?>?page=<?php echo $i; ?>"><?php echo $i; ?></a></dd>
+		<?php endfor; ?>
+	</dl>
+</div>

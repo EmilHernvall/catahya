@@ -1,0 +1,195 @@
+<?php
+$this->title = (!$this->textId ? 'Skriv ' : 'Redigera ') . $this->type['type_title'];
+$this->navigation = array('Administration', 'Text'); 
+
+$errorTexts = array('title' => 'Du måste ange en titel!',
+                    'text' => 'Du måste skriva något!');
+?>
+
+<h3 class="bannerHeader">Text</h3>
+<div class="content">
+
+	<p>
+		Ingress-fältet bör alltid anges eftersom det är den texten som visas på startsidan.
+		Om du inte vill ha en riktig ingress kan du kopiera en bit av inledningen till 
+		ingress-fältet och ange "Visa ingress" till Nej.
+	</p>
+	
+	<p style="margin-top: 10px;">
+		Efter att du sparat texten kommer du ha möjlighet att ladda upp bilder.
+	</p>
+	
+	<?php flash(); ?>
+
+	<form method="post" action="/admin/text/writecommit" class="stdForm">
+		<?php if ($this->textId): ?>
+			<input type="hidden" name="textid" value="<?php echo $this->textId; ?>" />
+		<?php else: ?>
+			<input type="hidden" name="typeid" value="<?php echo $this->type['type_id']; ?>" />
+		<?php endif; ?>
+		
+		<?php if ($this->errors): ?>
+			<p style="padding-top: 0; margin-top: 0;">
+				Följande fel uppstod:
+			</p>
+			<ul style="padding-left: 20px; margin-bottom: 10px;">
+				<?php foreach ($this->errors as $error): ?>
+					<li><?php echo $errorTexts[$error]; ?></li>
+				<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+		
+		<div class="field">
+			<label for="title">Titel</label>
+			<div class="textField">
+				<input type="text" name="title" value="<?php echo $this->data ? htmlspecialchars($this->data['title']) : ''; ?>" id="title" size="40" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="pretext">Ingress / Puff</label>
+			<div class="textField">
+				<textarea name="pretext" id="pretext" cols="40" rows="3"><?php echo $this->data ? htmlspecialchars($this->data['pretext']) : ''; ?></textarea>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="showpretext">Visa ingress</label>
+			<div class="textField">
+				<select name="showpretext" style="width: 300px;">
+					<option value="1" <?php if ($this->data && $this->data['showpretext'] == "1") echo 'selected="selected"'; ?>>Ja</option>
+					<option value="0" <?php if ($this->data && $this->data['showpretext'] == "0") echo 'selected="selected"'; ?>>Nej</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="text">Text</label>
+			<div class="textArea">
+				<textarea name="text" id="text" cols="40" rows="10"><?php echo $this->data ? htmlspecialchars($this->data['text']) : ''; ?></textarea>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="image">Bild</label>
+			<div class="textField">
+				<?php if (count($this->images)): ?>
+					<select name="image" id="image" style="width: 300px;">
+						<option value="0">Ingen bild</option>
+						<?php foreach ($this->images as $image): ?>
+							<option value="<?php echo $image["image_id"]; ?>" <?php if ($this->data && $this->data['image'] == $image["image_id"]) echo 'selected="selected"'; ?>><?php echo htmlspecialchars($image["image_name"] . ($image["image_title"] ? " - " . $image["image_title"] : "")); ?></option>
+						<?php endforeach; ?>
+					</select>
+				<?php else: ?>
+					Inga bilder uppladdade.
+				<?php endif; ?>
+			</div>
+		</div>
+		
+		<div class="field" style="margin-bottom: 20px;">
+			<label for="gallery">Autogenerera galleri</label>
+			<div class="textField">
+				<select name="gallery" style="width: 300px;">
+					<option value="0" <?php if ($this->data && $this->data['gallery'] == "0") echo 'selected="selected"'; ?>>Nej</option>
+					<option value="1" <?php if ($this->data && $this->data['gallery'] == "1") echo 'selected="selected"'; ?>>Ja</option>
+				</select>
+			</div>
+		</div>
+		
+		<?php foreach ($this->class->getMetaFields() as $field => $data): ?>
+			<div class="field">
+				<label for="<?php echo $field; ?>"><?php echo htmlspecialchars($data['title']); ?></label>
+				<div class="textField">
+					<?php switch ($data['type']):
+						case 'intervall': ?>
+							<select name="meta[<?php echo $field; ?>]" id="<?php echo $field; ?>" style="width: 300px;">
+								<?php for ($i = $data['min']; $i <= $data['max']; $i++): ?>
+									<option value="<?php echo $i; ?>"<?php if ($this->data && $this->data['meta'][$field] == $i) echo 'selected="selected"'; ?>><?php echo $i; ?></option>
+								<?php endfor; ?>
+							</select>
+						<?php 
+							break;
+						default: ?>
+							<input type="text" name="meta[<?php echo $field; ?>]" value="<?php echo $this->data ? htmlspecialchars($this->data['meta'][$field]) : ''; ?>" size="40" />
+					<?php endswitch; ?>
+				</div>
+			</div>
+		<?php endforeach; ?>
+		
+		<div class="button">
+			<button type="submit">Spara</button>
+		</div>
+	</form>
+
+</div>
+
+<?php if ($this->textId): ?>
+<h3 class="bannerHeader">Bilder</h3>
+
+<?php if (count($this->images)): ?>
+<table class="default">
+	<tr>
+		<th class="left" style="width: 100px;">Bild</th>
+		<th style="width: 150px;">Namn</th>
+		<th>Titel</th>
+		<th style="width: 50px;">Galleri</th>
+		<th style="width: 100px;">&nbsp;</th>
+	</tr>
+	<?php foreach ($this->images as $image): ?>
+		<tr>
+			<td class="left">
+				<a href="/userdata/text/fullsize/<?php echo $image["image_id"]; ?>.jpg"><img style="border: 0;" src="/userdata/text/thumbs/<?php echo $image["image_id"]; ?>.jpg" /></a>
+			</td>
+			<td><?php echo htmlspecialchars($image["image_name"]); ?></td>
+			<td><?php echo htmlspecialchars($image["image_title"]); ?></td>
+			<td><?php echo $image["image_gallery"] ? "Ja" : "Nej"; ?></td>
+			<td>
+				&raquo; <a href="/admin/text/deleteimagecommit?imageid=<?php echo $image["image_id"]; ?>&textid=<?php echo $this->textId; ?>">Radera</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+<?php else: ?>
+<div class="content" style="text-align: center; padding: 20px; font-size: 1.2em;">
+	Inga bilder uppladdade.
+</div>
+<?php endif; ?>
+
+<h3 class="bannerHeader">Ladda upp bild</h3>
+
+<div class="content">
+	<form method="post" action="/admin/text/imageuploadcommit?textid=<?php echo $this->textId; ?>" enctype="multipart/form-data" class="stdForm">
+		<div class="field">
+			<label for="title">Titel</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="description">Beskrivning</label>
+			<div class="textField">
+				<textarea name="description" id="description" rows="3"></textarea>
+			</div>
+		</div>
+	
+		<div class="field">
+			<label for="image">Bild</label>
+			<div class="textField">
+				<input type="file" name="image" id="image" style="width: 400px;" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="gallery">Visa i galleri</label>
+			<div class="textField">
+				<input type="checkbox" name="gallery" id="gallery" value="1" /> Ja
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Ladda upp</button>
+		</div>
+	</form>
+</div>
+<?php endif; ?>

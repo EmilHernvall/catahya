@@ -1,0 +1,26 @@
+<?php 
+$this->title = "Redigera";
+$this->navigation = array("/forum" => 'Forum', "/forum/" . $this->thread["forum_id"] => $this->thread['forum_name']); 
+?>
+<div class="content">
+	<form method="post" action="/forum/thread/editcommit?threadid=<?php echo $this->thread['thread_id']; ?>" class="stdForm">
+		<div class="field">
+			<label for="title">Titel</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" maxlength="100" value="<?php echo htmlspecialchars($this->thread['thread_title']); ?>" />
+			</div>
+		</div>
+	
+		<div class="field">
+			<label for="text">Text</label>
+			<div class="textArea">
+				<textarea name="text" id="text" rows="10"><?php echo htmlspecialchars($this->thread['thread_text']); ?></textarea>
+			</div>
+		</div>					
+		
+		<div class="button">
+			<button type="submit">Skicka</button>
+		</div>
+	</form>
+	<br />
+</div>

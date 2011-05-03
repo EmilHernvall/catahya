@@ -1,0 +1,23 @@
+div.message {
+	clear: both;
+	padding: 10px;
+}
+
+div.message dl {
+	width: 29%;
+	float: left;
+	margin: 0;
+	padding-bottom: 10px;
+}
+div.message dl dt {
+	font-weight: bold;
+}
+div.message dl dd {
+	margin: 0;
+}
+
+div.message div.msgText {
+	width: 70%;
+	float: right;
+	padding-bottom: 10px;
+}

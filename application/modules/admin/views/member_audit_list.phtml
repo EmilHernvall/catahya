@@ -1,0 +1,30 @@
+<?php
+$this->title = "Gransking av adressändringar";
+$this->navigation = array("Medlemmar", "Medlemsadministration");
+?>
+
+<table class="default">
+	<tr>
+		<th class="left">Alias</th>
+		<th>Namn</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php if (!count($this->members)): ?>
+		<tr>
+			<td colspan="3" style="text-align: center; padding: 20px; font-size: 1.2em;">
+				Inga fler addressändringar.
+			</td>
+		</tr>
+	<?php endif; ?>
+	<?php foreach ($this->members as $i => $member): ?>
+		<tr class="<?php echo ($i&1) == 0 ? "even" : "odd"; ?>">
+			<td class="left">
+				<a href="/profile/<?php echo $member["member_flatalias"]; ?>"><?php echo $member["member_alias"]; ?></a>
+			</td>
+			<td><?php echo $member["member_firstname"]." ".$member["member_surname"]; ?></td>
+			<td>
+				&raquo; <a href="/admin/member/audit?memberid=<?php echo $member["member_id"]; ?>">Granska</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

@@ -1,0 +1,30 @@
+<?php 
+$this->title = "Flytta";
+$this->navigation = array("/forum" => 'Forum', "/forum/" . $this->thread["forum_id"] => $this->thread['forum_name']); 
+?>
+<div class="content">
+	<form method="post" action="/forum/thread/movecommit?threadid=<?php echo $this->thread['thread_id']; ?>" class="stdForm">
+		<div class="field">
+			<label for="title">Titel</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->thread['thread_title']); ?>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="forumid">Forum</label>
+			<div class="textField">
+				<select name="forumid" id="forumid">
+					<?php foreach ($this->forums as $forum): ?>
+						<option value="<?php echo $forum["forum_id"]; ?>" <?php if ($forum["forum_id"] == $this->thread["forum_id"]) echo 'selected="selected"'; ?>><?php echo htmlspecialchars($forum["forum_name"]); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Flytta</button>
+		</div>
+	</form>
+	<br />
+</div>

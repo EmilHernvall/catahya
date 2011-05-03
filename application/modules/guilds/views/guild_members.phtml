@@ -1,0 +1,59 @@
+<?php
+$this->title = "Medlemmar";
+$this->navigation = array('Gillen', htmlspecialchars($this->guild["guild_name"]));
+?>
+
+<?php flash(); ?>
+
+<h3 class="bannerHeader">Inv&auml;ntar godk&auml;nnande</h3>
+<div class="content">
+	<p style="font-style: italic;">
+		Det finns <?php echo count($this->pending); ?> medlemmar som inv&auml;ntar godk&auml;nnande just nu.
+	</p>
+</div>
+
+<?php foreach ($this->pending as $i => $member): ?>
+	<div style="background-color: <?php echo ($i&1) == 0 ? '#C0D4B0' : '#FFF'; ?>; padding: 10px;">
+		<h4><a href="/profile/<?php echo $member["member_flatalias"]; ?>"><?php echo $member["member_alias"]; ?></a></h4>
+		<p style="padding-bottom: 10px;">
+			<?php echo htmlspecialchars($member["member_guildstatement"]); ?>
+		</p>
+
+		<form method="post" action="/guilds/<?php echo $this->guild["guild_id"]; ?>/confirmcommit" style="display: inline;">
+			<input type="hidden" name="memberid" value="<?php echo $member["member_id"]; ?>" />
+			<input type="hidden" name="do" value="accept" />
+			<select name="level">
+				<?php foreach ($this->levels as $level): ?>
+					<option value="<?php echo $level["level_id"]; ?>"><?php echo htmlspecialchars($level["level_name"]); ?></option>
+				<?php endforeach; ?>
+			</select>
+			<input type="submit" value="Godk&auml;nn" />
+		</form>
+		<form method="post" action="/guilds/<?php echo $this->guild["guild_id"]; ?>/confirmcommit" style="display: inline;">
+			<input type="hidden" name="memberid" value="<?php echo $member["member_id"]; ?>" />
+			<input type="hidden" name="do" value="reject" />
+			<input type="submit" value="Avsl&aring;" />
+		</form>
+	</div>
+<?php endforeach; ?>
+
+
+<h3 class="bannerHeader">Medlemmar</h3>
+<table class="default">
+	<tr>
+		<th class="left" style="width: 35%;">Namn</th>
+		<th style="width: 35%;">Titel</th>
+		<th style="width: 30%;">&nbsp;</th>
+	</tr>
+	<?php foreach ($this->members as $i => $member):
+		if (!$member["level_id"]) continue; ?>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left"><?php echo $member["member_alias"]; ?></td>
+			<td><?php echo htmlspecialchars($member["level_name"]); ?></td>
+			<td>
+				&raquo; <a href="javascript:confirmredir('Vill du slänga ut den här medlemmen?', '/guilds/<?php echo $this->guild["guild_id"]; ?>/rejectcommit?memberid=<?php echo $member["member_id"]; ?>')">Sl&auml;ng ut</a>
+				&raquo; <a href="/guilds/<?php echo $this->guild["guild_id"]; ?>/changelevel?memberid=<?php echo $member["member_id"]; ?>">&Auml;ndra titel</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

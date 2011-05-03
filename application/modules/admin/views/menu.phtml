@@ -1,0 +1,55 @@
+<ul class="navMenu">
+	<li><a href="/admin">&Ouml;verblick</a></li>
+	<?php if (Catahya_Access::hasAccess("admin_member")): ?>
+		<li>
+			<a href="/admin/member">Medlemmar</a>
+			<?php if (isset($this->pageSection) && $this->pageSection == 'member'): ?>
+			<ul class="subMenu">
+				<li><a href="/admin/member/auditlist">Adressändring</a></li>
+			</ul>
+			<?php endif; ?>
+		</li>
+	<?php endif; ?>
+	<?php if (Catahya_Access::hasAccess('admin_accesscontrol')): ?>
+		<li>
+			<a href="/admin/access">Behörigheter</a>
+			<?php if (isset($this->pageSection) && $this->pageSection == 'access'): ?>
+			<ul class="subMenu">
+				<li><a href="/admin/access">&Ouml;verblick</a></li>
+				<li><a href="/admin/access/groupList">Grupper</a></li>
+				<li><a href="/admin/access/accessList">Behörigheter</a></li>
+			</ul>
+			<?php endif; ?>
+		</li>
+	<?php endif; ?>
+	<?php if (Catahya_Access::hasAccess('admin_forum')): ?>
+		<li><a href="/admin/forum">Forum</a></li>
+	<?php endif; ?>
+	<?php if (Catahya_Access::hasAccess("admin_text")): ?>
+		<li>
+			<a href="/admin/text">Text</a>
+			<?php if (isset($this->pageSection) && $this->pageSection == 'text'): ?>
+				<ul class="subMenu">
+					<?php foreach ($this->types as $type): ?>
+						<li><a href="/admin/text/overview?typeid=<?php echo $type['type_id']; ?>"><?php echo htmlspecialchars($type['type_title']); ?></a></li>
+					<?php endforeach; ?>
+				</ul>
+			<?php endif; ?>	
+		</li>
+	<?php endif; ?>
+	<?php if (Catahya_Access::hasAccess("admin_guild")): ?>
+		<li><a href="/admin/guild">Gillen</a>
+	<?php endif; ?>
+	<?php if (Catahya_Access::hasAccess("admin_artwork")): ?>
+		<li>
+			<a href="/admin/artwork">Alster</a>
+			<?php if (isset($this->pageSection) && $this->pageSection == "artwork"): ?>
+				<ul class="subMenu">
+					<li>Subtyper</li>
+					<li>Spr&aring;k</li>
+					<li><a href="/admin/artwork/validate">Text f&ouml;r validering</a></li>
+				</ul>
+			<?php endif; ?>
+		</li>
+	<?php endif; ?>
+</ul>

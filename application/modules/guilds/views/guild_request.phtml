@@ -1,0 +1,22 @@
+<?php
+$this->title = "Ans&ouml;k";
+$this->navigation = array('Gillen', htmlspecialchars($this->guild["guild_name"]));
+?>
+
+<form method="post" action="/guilds/<?php echo $this->guild["guild_id"]; ?>/requestcommit">
+	<div class="content">
+
+		<div style="font-weight: bold;">Krav f&ouml;r medlemskap</div>
+		<p style="padding-bottom: 10px;">
+			<?php echo outputFormat($this->guild["guild_requirements"]); ?>
+		</p>
+
+		<label for="statement">Ans&ouml;kan</label>
+		<textarea id="statement" name="statement" cols="50" rows="10"></textarea>
+
+		<div>
+			<input type="submit" value="Ans&ouml;k" />
+		</div>
+
+	</div>
+</form>

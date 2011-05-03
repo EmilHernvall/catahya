@@ -1,0 +1,102 @@
+/**
+ * OUTER SEA
+ * 
+ * skapad av Kheryn
+ * förberedd till 2.0 av Bolion <anders.ytterstrom@gmail.com>
+ */
+
+/**
+ * Bakgrunds-, text- och ramfärger
+ *
+ */
+ 
+body
+{
+	background: #4e5356 url('../image/bg.jpg') no-repeat scroll top left;
+}
+
+.boxContent,
+.boxContentOdd
+{
+	background-color: #fff;;
+}
+
+.boxContentEven
+{
+	background-color: #e4e6e7;
+}
+
+h2,
+.boxHeader
+{
+	background-color: #1F2632;
+	border-bottom: 1px solid #12161D;
+	border-top: 1px solid #2C3445;
+	color: #ffffff;
+}
+
+div#contentWrapper h2,
+div#contentWrapper .boxHeader
+{
+	background-color: #2F3652;
+	border-bottom: 1px solid #32262D;
+	border-top: 1px solid #3C4455;
+	color: #ffffff;
+}
+
+h3,
+.boxSubHeader,
+ul.boxList li,
+table.boxTable td
+{
+	background-color: #354257;
+	border-top: 1px solid #4E607E;   
+	border-bottom: 1px solid #202835;
+	color: #ffffff;
+}
+
+/**
+ * Länkfärger
+ *
+ */
+
+h3 a,
+h3 a:visited,
+h3 a:active,
+.boxSubHeader a,
+.boxSubHeader a:visited,
+.boxSubHeader a:active,
+table.boxTable a,
+table.boxTable a:visited,
+table.boxTable a:active,
+ul.boxList a,
+ul.boxList a:active,
+ul.boxList a:visited
+{
+	color: #eacf73;
+}
+
+h3 a:hover,
+.boxSubHeader a:hover,
+ul.boxList a:hover,
+table.boxTable a:hover
+{
+	color: #f2eed2;
+}
+
+h2 a, .boxHeader a
+{
+	color: #fff;
+}
+
+.boxContent a,
+.boxContent a:active,
+.boxContent a:visited
+{
+	color: #a6861a;
+}
+
+.boxContent a:hover
+{
+	color: #deb629;
+}

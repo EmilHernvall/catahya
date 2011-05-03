@@ -1,0 +1,244 @@
+<?php
+$this->title = "Användarinfo";
+$this->navigation = array('Community', 'Registrering');
+$this->js[] = "/js/register.js";
+?>
+
+<div class="content">
+    <form method="post" action="/register/userinfo/userinfocommit" class="stdForm" id="regForm">
+	
+		<?php flash(); ?>
+		
+		<p style="color: red; font-weight: bold;">Alla fälten är obligatoriska!</p>
+		
+		<?php if (count($this->errors) > 0): ?>
+		<div style="color: red;">
+			Din ansökan innehöll följande fel:
+		</div>
+		<ul style="color: red;">
+			<?php foreach ($this->errors as $error): ?>
+				<li><?php echo $error; ?></li>
+			<?php endforeach; ?>
+		</ul>
+		<?php endif; ?>
+		
+		<p style="padding-top: 10px;">
+			OBS!
+			Vi kontrollerar noga varje angiven uppgift. Dessa skickas sedan in till 
+			Sveriges roll- och konfliktspelsförbund. Om någon uppgift är felaktig 
+			kommer inte ansökan gå igenom. Därför är det enbart slöseri med såväl 
+			din som vår tid om du fyller i felaktiga uppgifter. Alla uppgifter måste anges.
+		</p>
+			
+		<div class="infoSection">
+		
+			<p class="infoText">
+				Användarnamn får inte på något sätt ha sexistisk eller rasistisk anknytning.
+				Fantasyliknande användarnamn uppmuntras starkt. Ta en titt på medlemmarna och 
+				få lite inspiration.
+			</p>
+			
+			<p class="infoText">
+				Speciella tecken som é, í, ë, '  (osv) samt mellanrum är tillåtna i namnet. Var noga 
+				med att inga mellanslag finns innan och efter namnet.
+			</p>
+			
+			<p class="infoText" id="aliasError" style="display: none; color: red;">&nbsp;</p>
+			
+			<div class="field">
+				<label for="alias">Användarnamn</label>
+				<div class="textField">
+					<input type="text" name="alias" id="alias" maxlength="20" value="<?php echo array_key_exists('alias', $this->fields) ? htmlspecialchars($this->fields["alias"]) : ""; ?>" /> 
+				</div>
+			</div>
+		
+		</div>
+		
+		<div class="infoSection">
+		
+			<p class="infoText">
+				Lösenordet måste vara minst 6 tecken långt.
+			</p>
+			
+			<p class="infoText" id="passwordError" style="display: none; color: red;">&nbsp;</p>
+		
+			<div class="field">
+				<label for="pass">Lösenord</label>
+				<div class="textField">
+					<input type="password" name="pass" id="pass" />
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="passvalid">Bekräfta lösenord</label>
+				<div class="textField">
+					<input type="password" name="passvalid" id="passvalid" />
+				</div>
+			</div>
+		
+		</div>
+		
+		<div class="infoSection">
+		
+			<p class="infoText" id="emailError" style="display: none; color: red;">&nbsp;</p>
+			
+			<div class="field">
+				<label for="email">E-post</label>
+				<div class="textField">
+					<input type="text" name="email" id="email" maxlength="250" value="<?php echo array_key_exists('email', $this->fields) ? htmlspecialchars($this->fields["email"]) : ""; ?>" /> 
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="hideemail">Dölj E-post</label>
+				<div class="textField">
+					<input type="checkbox" name="hideemail" value="1" <?php if (array_key_exists('hideemail', $this->fields) && $this->fields["hideemail"]) echo 'checked="checked"'; ?> /> Ja
+				</div>
+			</div>
+		
+		</div>
+		
+		<div class="infoSection">
+			
+			<p class="infoText" id="birthdateError" style="display: none; color: red;">&nbsp;</p>
+			
+			<div class="field">
+				<label for="pass">Kön</label>
+				<div class="textField">
+					<select name="gender" id="gender">
+						<option value="female" <?php if (array_key_exists('gender', $this->fields) && $this->fields["gender"] == "female") echo 'selected="selected"'; ?>>Kvinna</option>
+						<option value="male" <?php if (array_key_exists('gender', $this->fields) && $this->fields["gender"] == "male") echo 'selected="selected"'; ?>>Man</option>
+					</select>
+				</div>
+			</div>
+			
+			<p class="infoText">I formatet YYYYMMDD-XXXX. T.ex. 19900301-5543.</p>
+			
+			<div class="field">
+				<label for="pass">Personnummer</label>
+				<div class="textField">
+					<input type="text" name="birthdate" id="birthdate" maxlength="13" value="<?php echo array_key_exists('birthdate', $this->fields) ? htmlspecialchars($this->fields["birthdate"]) : ""; ?>" /> 
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="infoSection">
+		
+			<p class="infoText" id="nameError" style="display: none; color: red;">&nbsp;</p>
+			
+			<div class="field">
+				<label for="pass">Förnamn</label>
+				<div class="textField">
+					<input type="text" name="name" id="name" maxlength="50" value="<?php echo array_key_exists('name', $this->fields) ? htmlspecialchars($this->fields["name"]) : ""; ?>" /> 
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="hidename">Dölj förnamn</label>
+				<div class="textField">
+					<input type="checkbox" name="hidename" id="hidename" value="1" <?php if (array_key_exists('hidename', $this->fields) && $this->fields["hidename"]) echo 'checked="checked"'; ?> />
+					Ja
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="surname">Efternamn</label>
+				<div class="textField">
+					<input type="text" name="surname" id="surname" maxlength="50" value="<?php echo array_key_exists('surname', $this->fields) ? htmlspecialchars($this->fields["surname"]) : ""; ?>" /> 
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="hidesurname">Dölj efternamn</label>
+				<div class="textField">
+					<input type="checkbox" name="hidesurname" id="hidesurname" value="1" <?php if (array_key_exists('hidesurname', $this->fields) && $this->fields["hidesurname"]) echo 'checked="checked"'; ?> /> Ja
+				</div>
+			</div>
+		
+		</div>
+		
+		<div class="infoSection">
+		
+			<p class="infoText" id="addressError" style="display: none; color: red;">&nbsp;</p>
+		
+			<div class="field">
+				<label for="address">Gatuadress</label>
+				<div class="textField">
+					<input type="text" name="address" id="address" maxlength="200" value="<?php echo array_key_exists('address', $this->fields) ? htmlspecialchars($this->fields["address"]) : ""; ?>" />
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="zipcode">Postnummer</label>
+				<div class="textField">
+					<input type="text" maxlength="5" size="5" name="zipcode" id="zipcode" value="<?php echo array_key_exists('zipcode', $this->fields) ? htmlspecialchars($this->fields["zipcode"]) : ""; ?>" /> 
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="city">Ort</label>
+				<div class="textField">
+					<input type="text" name="city" id="city" maxlength="20" value="<?php echo array_key_exists('city', $this->fields) ? htmlspecialchars($this->fields["city"]) : ""; ?>" /> 
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="hidepostalarea">Dölj ort</label>
+				<div class="textField">
+					<input type="checkbox" name="hidecity" id="hidecity" value="1" <?php if (array_key_exists('hidecity', $this->fields) && $this->fields["hidecity"]) echo 'checked="checked"'; ?> /> 
+				</div>
+			</div>
+		
+			<p class="infoText">
+				Land anges <em>endast</em> om du bor utanf&ouml;r sverige.
+			</p>
+		
+			<div class="field">
+				<label for="country">Land</label>
+				<div class="textField">
+					<input type="text" name="country" id="country" maxlength="40" value="<?php echo array_key_exists('country', $this->fields) ? htmlspecialchars($this->fields["country"]) : ""; ?>" /> 
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="infoSection">
+		
+			<p class="infoText">
+				Telefonnummer anges med riktnummer separerat av ett -. T.ex 073-8006070.
+			</p>
+		
+			<p class="infoText" id="phoneError" style="display: none; color: red;">&nbsp;</p>
+		
+			<div class="field">
+				<label for="phone">Telefonnummer</label>
+				<div class="textField">
+					<input type="text" name="phone" id="phone" maxlength="15" value="<?php echo array_key_exists('phone', $this->fields) ? htmlspecialchars($this->fields["phone"]) : ""; ?>" /> 
+				</div>
+			</div>
+		
+		</div>
+
+		<div class="infoSection">
+		
+			<p class="infoText">
+				Eventuellt meddelande till administratörerna, t.ex. info om tidigare medlemsskap eller telefonnummer.
+			</p>
+
+			<div class="field">
+				<label for="othermsg">Meddelande</label>
+				<div class="textArea">
+					<textarea name="othermsg" id="othermsg" cols="40" rows="10"><?php echo array_key_exists('othermsg', $this->fields) ? htmlspecialchars($this->fields["othermsg"]) : ""; ?></textarea>
+				</div>
+			</div>
+			
+			<div class="clear">&nbsp;</div>
+		
+		</div>
+			
+		<div class="button">
+			<button type="submit" id="nextStep">Nästa steg</button>
+		</div>
+	</form>
+</div>

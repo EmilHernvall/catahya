@@ -1,0 +1,37 @@
+<?php
+$this->title = $this->product['product_name'];
+$this->navigation = array('Butiken', $this->product['product_name']);
+$this->css[] = '/css/pages/store.css';
+?>
+
+<div class="content">
+        <h3 class="subh">Produktinformation</h3>
+    	<table cellpadding="2" style="border-spacing: 10px;">
+            <tr class="product">
+            	<td style="">
+            		<a href="/store/product/<?php echo $this->product['product_id'];?>">
+            		<img class="thumb" src="<?php echo $this->product['thumbnail_filename'];?>"
+					     alt="thumb" />
+            	</td>
+            	<td>
+            		Vikt: <?php echo $this->product['product_weight']; ?> gram. <br />
+            		Pris: <?php echo $this->product['product_price']; ?> kr. <br />
+            		Lagerstatus: <?php if ($this->product['category_name'] == "Kläder"): ?>
+            		<?php echo "Se produktbeskrivning"; ?>
+            			<?php else: ?>
+            				<?php echo stockString($this->product['stock']);?>
+            			<?php endif; ?> 
+            		<br />
+            		<img class="cart" src="/images/store/cart.png"
+						 alt="Lägg till i kundvagn" title="Lägg till i kundvagn" />
+            	</td>
+            </tr>
+        </table>
+		<?php echo $this->product['product_long_description']; ?>
+		<?php if (!empty($this->images)): ?>
+			<br /><br /><b>Bilder</b><br />
+			<?php foreach ($this->images as $image ): ?>
+				<img src="../../<?php echo $image['image_path'];?>" /><br /><br />
+			<?php endforeach; ?>
+		<?php endif; ?>
+</div>

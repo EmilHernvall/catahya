@@ -1,0 +1,97 @@
+<?php
+$this->navigation = array('Inställningar');
+$this->title = 'Profil';
+?>
+<?php flash(); ?>	
+<h3 class="bannerHeader">Profil</h3>
+<div class="content">
+
+	<form method="post" action="/settings/profile/profilecommit" class="stdForm">
+
+		<div class="field">
+			<label for="name">Namn</label>
+			<div class="textField">
+				<input type="text" name="name" id="name" value="<?php echo htmlspecialchars($this->member['member_name']);?>" maxlength="50" />
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="city">Stad</label>
+			<div class="textField">
+				<input type="text" name="city" id="city" value="<?php echo htmlspecialchars($this->member['member_city']);?>" maxlength="50" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="email">E-mail</label>
+			<div class="textField">
+				<input type="text" name="email" id="email" value="<?php echo htmlspecialchars($this->member['member_email']);?>" maxlength="100" />
+			</div>
+		</div>
+			
+		<div class="field">
+			<label for="jabber">Jabber</label> 
+			<div class="textField">
+				<input type="text" name="jabber" id="jabber" value="<?php echo htmlspecialchars($this->member['member_jabber']);?>" maxlength="100" />
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="msn">MSN</label> 
+			<div class="textField">
+				<input type="text" name="msn" id="msn" value="<?php echo htmlspecialchars($this->member['member_msn']);?>" maxlength="100" />
+			</div>
+		</div>
+			
+		<div class="field">
+			<label for="homepage">Hemsida</label>
+			<div class="textField">
+				<input type="text" name="homepage" id="homepage" value="<?php echo htmlspecialchars($this->member['member_homepage']);?>" maxlength="200" />
+			</div>
+		</div>
+			
+		<div class="field">
+			<label for="quickdesc">Snabbeskrivning</label>
+			<div class="textField">
+				<input type="text" name="quickdesc" id="quickdesc" value="<?php echo htmlspecialchars($this->member['member_quickdesc']);?>" maxlength="15" />
+			</div>
+		</div>
+			
+		<div class="button">
+			<button type="submit">Spara</button>
+		</div>
+
+	</form>
+</div>
+	
+<h3 class="bannerHeader">Byt lösenord</h3>
+<div class="content">
+	<form method="post" action="/settings/profile/passwordcommit" class="stdForm">
+		
+		<div class="field">
+			<label for="password_old">Gammalt lösenord</label>
+			<div class="textField">
+				<input type="password" name="password_old" id="password_old" maxlength="50" />
+			</div>
+		</div>
+		
+		<div class="field">		
+			<label for="password_new1">Nytt lösenord</label> 
+			<div class="textField">
+				<input type="password" name="password_new1" id="password_new1" maxlength="50" />
+			</div>
+		</div>
+		
+		<div class="field">		
+			<label for="password_new2">Upprepa lösenord</label>
+			<div class="textField">
+				<input type="password" name="password_new2" id="password_new2" maxlength="50" />
+			</div>
+		</div>
+		
+		<div class="button">
+			<input type="submit" value="Byt lösenord" style="width: 100px;" />
+		</div>
+	</form>
+
+</div>

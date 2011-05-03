@@ -1,0 +1,24 @@
+<?php
+$this->title = 'Artiklar';
+$this->navigation = array('Kr&ouml;nikor', 'Lista');
+?>
+
+<table class="default">
+	<colgroup>
+		<col />
+		<col />
+		<col width="20%" />
+	</colgroup>
+	<tr>
+		<th class="left"><a href="/chronicles/list/article?sort=0" style="color: #fff;">Titel</a></th>
+		<th><a href="/chronicles/list/article?sort=1" style="color: #fff;">Skribent</a></th>
+		<th><a href="/chronicles/list/article?sort=2" style="color: #fff;">Publicerad</a></th>
+	</tr>
+	<?php foreach ($this->texts as $i => $text): ?>
+		<tr class="<?php echo ($i&1) == 0 ? "even" : "odd"; ?>">
+			<td class="left"><a href="/chronicles/index/view?textid=<?php echo $text['text_id']; ?>"><?php echo htmlspecialchars($text['text_title']); ?></a></td>
+			<td><a href="/profile/<?php echo $text['member_flatalias']; ?>"><?php echo $text['member_alias']; ?></a></td>
+			<td><?php echo standardDate($text['text_timestamp'],false); ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>

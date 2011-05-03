@@ -1,0 +1,15 @@
+<ul class="navMenu">
+	<li><a href="/artwork">Start</a></li>
+	<?php foreach ($this->types as $type): ?>
+		<li>
+			<a href="/artwork/<?php echo $type["type_name"]; ?>"><?php echo htmlspecialchars($type["type_title"]); ?></a>
+			<?php if ($this->type["type_id"] == $type["type_id"]): ?>
+				<?php if ($_SESSION["online"]): ?>
+					<ul class="subMenu">
+						<li><a href="/artwork/<?php echo $type["type_name"]; ?>/write">Skriv ny</a></li>
+					</ul>
+				<?php endif; ?>
+			<?php endif; ?>
+		</li>
+	<?php endforeach; ?>
+</ul>

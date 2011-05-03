@@ -1,0 +1,514 @@
+/*
+#708775 - Dark green
+#90AD96 - Medium green
+#B0D4B7 - Light green
+#7B8770 - Greyish green
+#9DAD90 - Brownish green
+#C0D4B0 - Light green
+#787878 - Blueish grey
+#878787 - Grey
+#000000 - Black
+
+#ebebeb
+
+#990000
+#000099
+
+*/
+
+/*
+Basic
+*/
+
+body {
+	font-family: 'Trebuchet MS';
+	font-size: 10pt;
+	
+	margin: 0;
+	padding: 0;
+	
+	background-color: #949494;
+}
+
+a {
+	color: #003355;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h2,h3,h4,h5,h6 {
+	padding: 0;
+	margin: 0;
+}
+
+p {
+	padding: 0;
+	margin: 0;
+}
+
+label {
+	display: block;
+	font-weight: bold;
+}
+
+p.flash {
+	color: red;
+	padding: 10px;
+}
+
+.clear {
+	font-size: 0;
+	line-height: 0;
+	clear: both;
+}
+
+textarea {
+	font-family: Trebuchet MS;
+	font-size: 10pt;
+}
+
+/*
+Layout
+*/
+#globalWrapper {
+	width: 995px;
+	margin-left: auto;
+	margin-right: auto;
+	border-left: 2px solid #708775;
+	border-right: 2px solid #708775;
+	background-color: #c4c4c4;
+}
+
+h1 {
+	margin: 0;
+	padding: 0;
+	
+	width: 100%;
+	height: 100px;
+	
+	background-image: url('/images/logo-bg.jpg');
+	background-position: top right;
+	background-repeat: no-repeat;
+	
+	font-size: 55px;
+	font-weight: bold;
+	font-style: italic;
+	color: #ccc;
+}
+
+h1 div {
+	background-image: url('/images/logo.png');
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	
+	width: 154px;
+	height: 80px;
+	
+	padding-left: 5px;
+	padding-top: 10px;
+}
+
+h1 div span {
+	display: none;
+}
+
+ul#menu {
+	margin: 0;
+	padding: 0 0 0 15px;
+	
+	height: 23px;
+	
+	background-image: url('/images/menu-bg.png');
+	background-position: top left;
+	background-repeat: repeat-x;
+}
+
+ul#menu li {
+	display: block;
+	float: left;
+	
+	margin-right: 0px;
+	padding: 0;
+	
+	height: 23px;
+
+	list-style-type: none;
+	
+	color: white;
+	
+	background-image: url('/images/menu-separator.png');
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+ul#menu li.first {
+	background-image: url("foo");
+	padding-left: 10px;
+}
+
+ul#menu li a { 
+	display: block;
+	height: 21px;
+	margin: 0;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 2px;
+	color: #fff;
+	text-decoration: none;
+}
+
+ul#menu li a:hover { 
+	text-decoration: underline;
+}
+
+ul#menu li.selected {
+	background-image: url('/images/menu-bg-selected.png');
+	background-position: top left;
+	background-repeat: repeat-x;
+}
+
+ul#menu li.selected a {
+}
+
+ul#menu li.last a {
+	background-image: url('/images/menu-separator.png');
+	background-position: top right;
+	background-repeat: no-repeat;
+}
+
+div#contentWrapper {
+	width: 981px;
+	
+	margin-left: auto;
+	margin-right: auto;
+	
+	padding-top: 7px;
+}
+
+div#contentWrapper div.pageContent {
+	width: 806px;
+	float: left;
+}
+
+div#contentWrapper div.pageContent div.menuColumn {
+	width: 167px;
+	float: left;
+}
+
+div#contentWrapper div.pageContent div.contentColumn {
+	width: 631px;
+	float: right;
+}
+
+div#contentWrapper div.globalContent {
+	width: 167px;
+	float: right;
+}
+
+/* Boxes */
+div.box {
+	width: 100%;
+	margin-bottom: 8px;
+}
+
+div.whiteBox {
+	background-color: #fff;
+}
+
+div.whiteBox div.left,
+div.whiteBox div.right {
+	background-image: url('/images/edges.png');
+}
+
+div.greenBox {
+	background-color: #708775;
+	color: #fff;
+}
+
+div.greenBox a {
+	color: #fff;
+}
+
+div.greenBox div.left,
+div.greenBox div.right {
+	background-image: url('/images/edges-green.png');
+}
+
+div.box div.left, 
+div.box div.right {
+	width: 5px;
+	height: 5px;
+	
+	font-size: 1px;
+	line-height: 1px;
+}
+div.box div.top,
+div.box div.bottom {
+	height: 5px;
+}
+div.box div.bottom { 
+	clear: both;
+}
+div.box div.top div.left {
+	float: left;
+	background-position: top left;
+}
+div.box div.top div.right {
+	float: right;
+	background-position: top right;
+}
+div.box div.bottom div.left {
+	float: left;
+	background-position: bottom left;
+}
+div.box div.bottom div.right {
+	float: right;
+	background-position: bottom right;
+}
+div.box h2 {
+	font-size: 18px;
+	font-weight: normal;
+	padding-left: 10px;
+	padding-bottom: 6px;
+	
+	height: 23px;
+	
+	border-bottom: 1px solid #c4c4c4;
+}
+div.box h2 div.heading {
+	float: left;
+	width: 49%;
+}
+div.box h2 div.navPath {
+	float: right;
+	width: 49%;
+	font-size: 10pt;
+	text-align: right;
+	padding-right: 10px;
+	padding-top: 5px;
+}
+
+div.box div.content {
+	padding: 10px;
+}
+
+/*
+Subsection
+*/
+h3.bannerHeader {
+	padding: 5px 10px; 
+	background-color: #708775;
+	color: #fff;
+	font-size: 14px;
+}
+
+table.default {
+	width: 100%;
+	text-align: left;
+	border-spacing: 0;
+}
+
+table.default th {
+	border-top: 1px solid #fff;
+	background-color: #708775;
+	color: #fff;
+}
+
+table.default th,
+table.default td {
+	padding: 3px;
+}
+
+table.default th.left,
+table.default td.left {
+	padding-left: 10px;
+}
+
+table.default tr.even td {
+	background-color: #C0D4B0;
+}
+
+/*
+Subnavigation
+*/
+div.menuColumn ul.navMenu {
+	margin: 0; 
+	padding: 0;
+	
+	list-style-type: none;
+}
+
+div.menuColumn ul.navMenu li {
+	padding: 1px;
+	
+	border-bottom: 1px dotted #ccc;
+}
+
+div.menuColumn ul.navMenu ul.subMenu {
+	margin: 0; 
+	padding: 0 0 0 10px;
+	
+	list-style-type: none;
+}
+
+div.menuColumn ul.navMenu ul.subMenu li {
+	border: 0;
+}
+
+/*
+View pages
+*/
+div.infoBox {
+	float: right; 
+	background-color: #C0D4B0;
+	color: #000;
+	margin-left: 10px; 
+	width: 175px;
+	text-align: left;
+}
+
+div.infoBox h4 {
+	font-size: 12pt;
+	border-bottom: 1px solid #fff;
+	padding: 5px;
+}
+
+div.infoBox dl {
+	padding: 0px 5px 0px 5px;
+}
+
+div.infoBox dl dt {
+	font-weight: bold;
+}
+
+div.infoBox dl dd {
+	margin-left: 15px;
+}
+
+/*
+Form
+*/
+.stdForm div.field,
+.stdForm div.button {
+	padding-top: 10px;
+	clear: both;
+}
+
+.stdForm div.field label {
+	display: block;
+	font-weight: bold;
+	
+	float: left;
+	width: 150px;
+}
+
+.stdForm div.field div.textField, 
+.stdForm div.field div.textArea {
+	float: left;
+	width: 400px;
+}
+
+.stdForm input[type="text"],
+.stdForm textarea {
+	width: 400px;
+}
+
+.stdForm div.button {
+	padding-top: 10px;
+	padding-left: 150px;
+}
+
+.stdForm div.infoSection {
+	clear: both;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc; 
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+
+.stdForm div.infoSection p.infoText {
+	font-style: italic; 
+	padding: 10px 0 0 0;
+}
+
+.stdForm div.field label.normal {
+	float: none;
+	display: inline;
+	font-weight: normal;
+}
+
+/*
+Wiki macros
+*/
+
+.leftColumn {
+	width: 53%; 
+	float: left; 
+	padding: 10px;
+	text-align: justify;
+}
+.rightColumn {
+	width: 40%; 
+	float: right; 
+	background-color: #C0D4B0; 
+	padding: 10px;
+}
+.rightColumn a {
+	
+	/*color: #857F6F;*/
+}
+dl.events {
+	margin-top: 0px;
+}
+dl.events dt {
+	font-weight: bold;
+}
+dl.events dd {
+	margin: 5px 0 0 0;
+}
+
+/*
+Relations list
+*/
+#relations {
+	margin: 0; 
+	padding: 0;
+	border-spacing: 0;
+	width: 100%;
+}
+#relations th {
+	text-align: left;
+	font-weight: normal;
+	padding: 1px;
+}
+#relations th.norel {
+	text-align: center;
+}
+#relations td {
+	width: 20px; 
+	text-align: right;
+	padding: 1px;
+}
+
+.menuColumn {
+	font-size: 9pt;
+}
+.globalContent {
+	font-size: 9pt;
+}
+
+/*
+#708775 - Dark green
+#90AD96 - Medium green
+#B0D4B7 - Light green
+#7B8770 - Greyish green
+#9DAD90 - Brownish green
+#C0D4B0 - Light green
+#787878 - Blueish grey
+#878787 - Grey
+#000000 - Black
+*/
+

@@ -1,0 +1,108 @@
+<?php
+$this->title = htmlspecialchars($this->text['text_title']);
+$this->js[] = "/js/lightbox/lightbox.js";
+$this->css[] = "/js/lightbox/lightbox.css";
+?>
+<style type="text/css">
+form label {
+	display: block;
+}
+</style>
+
+<div class="content" style="text-align: justify;">
+	
+	<div style="font-style: italic;">
+		Skriven <?php echo standardDate($this->text["text_timestamp"]); ?> av <a href="/profile/<?php echo $this->text["member_flatalias"]; ?>"><?php echo $this->text["member_alias"]; ?></a>.
+	</div>
+	
+	<div style="margin-top: 10px;">
+	
+		<div class="infoBox">
+			<h4>Info</h4>
+			<?php if ($this->text["image_id"]): ?>
+				<div style="text-align: center; margin-top: 10px;">
+					<a href="/userdata/text/large/<?php echo $this->text["image_id"]; ?>.jpg" rel="lightbox">
+						<img src="/userdata/text/thumbs/<?php echo $this->text["image_id"]; ?>.jpg" style="border: 0;" />
+					</a>
+				</div>
+			<?php endif; ?>
+			<dl>
+				<?php foreach ($this->meta as $field => $data): 
+					if (!array_key_exists($field, $this->metaFields)) continue;
+					if (!trim($data)) continue;
+					?>
+					<dt><?php echo $this->metaFields[$field]["title"]; ?></dt>
+					<dd><?php echo htmlspecialchars($data); ?></dd>
+				<?php endforeach; ?>
+			</dl>
+		</div>
+	
+		<div style="float: left; width: 420px;">
+			<?php if ($this->text["text_showpretext"]): ?>
+				<div style="font-weight: bold; margin-bottom: 10px;">
+					<?php echo outputFormat($this->text['text_pretext']); ?>
+				</div>
+			<?php endif; ?>
+		
+			<div>
+				<?php echo outputFormat($this->text['text_text']); ?>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="clear">&nbsp;</div>
+
+</div>
+
+<?php if (count($this->gallery)): ?>
+<h3 class="bannerHeader" style="clear: both; margin-top: 20px;">Galleri</h3>
+<table style="width: 100%;" class="default">
+	<?php foreach ($this->gallery as $i => $image): ?>
+		<tr class="<?php echo ($i&1) == 0 ? "even" : "odd"; ?>">
+			<td style="padding-left: 10px; width: 100px;">
+				<a href="/userdata/text/large/<?php echo $image["image_id"]; ?>.jpg" rel="lightbox"><img style="border: 0;" src="/userdata/text/thumbs/<?php echo $image["image_id"]; ?>.jpg" /></a>
+			</td>
+			<td style="padding-left: 10px;">
+				<?php echo outputFormat($image["image_description"], false); ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+<?php endif; ?>
+
+<?php if (count($this->comments)): ?>
+	<h3 class="bannerHeader" style="clear: both; <?php if (!count($this->gallery)) echo 'margin-top: 20px;'; ?>">Kommentarer</h3>
+	<?php foreach ($this->comments as $i => $comment): ?>
+	<div style="padding: 5px 200px 5px 10px; background-color: <?php echo !($i&1)?'#C0D4B0':'#FFF'; ?>;">
+		<h4>#<?php echo $i+1; ?> - <?php echo htmlspecialchars($comment['comment_title']); ?></h4>
+		<span style="font-style: italic;"><?php echo standardDate($comment['comment_timestamp'], false); ?> av <a href="/profile/<?php echo $comment['member_flatalias']; ?>"><?php echo $comment['member_alias']; ?></a></span>
+		<p>
+			<?php echo outputFormat($comment['comment_text'], false); ?>
+		</p>
+	</div>
+	<?php endforeach; ?>
+	<?php endif; ?>
+
+<?php if ($_SESSION['online']): ?>
+<h3 class="bannerHeader">Kommentera</h3>
+<div class="content">
+	<form method="post" action="/reviews/index/commentCommit?textid=<?php echo $this->textId; ?>" class="stdForm">
+		<div class="field">
+			<label for="title">Ämne</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" maxlength="100" size="40"/>
+			</div>
+		</div>
+		<div class="field">
+			<label for="text">Text</label>
+			<div class="textField">
+				<textarea name="text" id="text" cols="40" rows="10"></textarea>
+			</div>		
+		</div>		
+		<div class="button">
+			<button type="submit">Skicka</button>
+		</div>
+	</form>
+</div>
+<?php endif; ?>

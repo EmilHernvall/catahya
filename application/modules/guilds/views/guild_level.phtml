@@ -1,0 +1,74 @@
+<?php
+$this->title = "Beh&ouml;righeter";
+$this->navigation = array('Gillen', htmlspecialchars($this->guild["guild_name"]));
+$types = array("member" => "Medlem", "moderator" => "Moderator", "admin" => "Administrat&ouml;r");
+?>
+
+<h3 class="bannerHeader">Nuvarande</h3>
+<table class="default">
+	<tr>
+		<th class="left">Titel</th>
+		<th>Typ</th>
+		<th>Grupp</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php foreach ($this->levels as $i => $level): ?>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left"><?php echo htmlspecialchars($level["level_name"]); ?></td>
+			<td>
+				<?php
+				echo $types[$level["level_access"]];
+				?>
+			</td>
+			<td>
+				<?php
+				echo $level["group_id"] ? $level["group_title"] : "Ingen";
+				?>
+			</td>
+			<td>
+				&raquo; <a href="/guilds/<?php echo $this->guild["guild_id"]; ?>/leveledit?levelid=<?php echo $level["level_id"]; ?>">Redigera</a>
+				&raquo; Radera
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+
+<h3 class="bannerHeader">Ny titel</h3>
+<div class="content">
+	<form method="post" action="/guilds/<?php echo $this->guild["guild_id"]; ?>/leveladdcommit" class="stdForm">
+		<div class="field">
+			<label for="name">Titel</label>
+			<div class="textField">
+				<input type="text" name="name" id="name" maxlength="100" />
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="access">Typ</label>
+			<div class="textField">
+				<select name="access" id="access">
+					<?php foreach ($types as $access => $name): ?>
+						<option value="<?php echo $access; ?>"><?php echo $name; ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		
+		<?php if (Catahya_Access::hasAccess("guild_admin")): ?>
+		<div class="field">
+			<label for="group">Grupp</label>
+			<div class="textField">
+				<select name="group" id="group">
+					<?php foreach ($this->groups as $group): ?>
+						<option value="<?php echo $group["group_id"]; ?>"><?php echo $group["group_title"]; ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		<?php endif; ?>
+
+		<div class="button">
+			<button type="submit">Skapa</button>
+		</div>
+	</form>
+</div>

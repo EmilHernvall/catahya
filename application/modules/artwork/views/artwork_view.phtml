@@ -1,0 +1,58 @@
+<?php
+$this->title = $this->artwork["artwork_title"];
+$this->navigation = array("Alster", $this->artwork["type_title"]);
+?>
+
+<div class="content">
+	<div style="font-style:italic; padding-bottom: 10px;">
+		Skrivet <?php echo standardDate($this->artwork["artwork_timestamp"]); ?>
+		av <?php printf('<a href="/profile/%s">%s</a>', $this->artwork["member_flatalias"], $this->artwork["member_alias"]); ?>
+		
+	</div>
+
+	<?php echo outputFormat($this->artwork["artwork_text"], false); ?>
+</div>
+
+<?php if (count($this->comments)): ?>
+    <h3 class="bannerHeader" style="clear: both; margin-top: 20px;">Kommentarer</h3>
+    <?php foreach ($this->comments as $i => $comment): ?>
+    <div style="padding: 5px 200px 5px 10px; background-color: <?php echo !($i&1)?'#C0D4B0':'#FFF'; ?>;">
+        <h4>#<?php echo $i+1; ?> - <?php echo htmlspecialchars($comment['comment_title']); ?></h4>
+        <span style="font-style: italic;">
+            <?php echo standardDate($comment['comment_timestamp'], false); ?>
+            av
+            <a href="/profile/<?php echo $comment['member_flatalias']; ?>">
+                <?php echo $comment['member_alias']; ?>
+            </a>
+        </span>
+        <p>
+            <?php echo outputFormat($comment['comment_text'], false); ?>
+        </p>
+    </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if ($_SESSION['online']): ?>
+<h3 class="bannerHeader">Kommentera</h3>
+<div class="content">
+    <form method="post" action="/artwork/index/commentCommit?artworkid=<?php echo $this->artwork["artwork_id"]; ?>" class="stdForm">
+		<?php flash(); ?>
+        <div class="field">
+            <label for="title">&Auml;mne</label>
+            <div class="textField">
+                <input type="text" name="title" id="title" size="40" maxlength="100" />
+            </div>
+        </div>
+        <div class="field">
+            <label for="text">Text</label>
+            <div class="textField">
+                <textarea name="text" id="text" cols="40" rows="10"></textarea>
+            </div>
+        </div>
+        <div class="button">
+            <button type="submit">Skicka</button>
+        </div>
+    </form>
+</div>
+<?php endif; ?>
+

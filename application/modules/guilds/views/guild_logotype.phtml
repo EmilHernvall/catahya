@@ -1,0 +1,19 @@
+<?php
+$this->title = "Logotype";
+$this->navigation = array('Gillen', htmlspecialchars($this->guild["guild_name"]));
+?>
+
+<div class="content">
+	<?php flash(); ?>
+	
+	<form method="post" action="/guilds/<?php echo $this->guild["guild_id"]; ?>/logotypecommit" class="stdForm" enctype="multipart/form-data">
+		<div class="field">
+			<label for="image">Bild</label>
+			<input type="file" name="image" id="image" />
+		</div>
+		
+		<div class="button">
+			<button type="submit">Ladda upp</button>
+		</div>
+	</form>
+</div>

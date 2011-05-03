@@ -1,0 +1,96 @@
+/**
+ * RAVEN
+ * 
+ * skapad av Kheryn
+ * förberedd till 2.0 av Bolion <anders.ytterstrom@gmail.com>
+ */
+
+/**
+ * Bakgrunds-, text- och ramfärger
+ *
+ */
+ 
+body {
+	background: #899276 url('../image/bg-.jpg') no-repeat scroll top left;
+}
+
+body.newGraphics h1 {background: url('../image/top.jpg') repeat-x scroll 0 0;}
+body.newGraphics h1 a {background: url('../image/logo.png') no-repeat scroll 0 0;}
+
+*.box *.body, .boxContent, .boxContentOdd {
+	background-color: #fff;
+	color: #000;
+}
+
+.boxContentEven {
+	background-color: #e8eae3;
+}
+
+h2, *.box *.h {
+	background-color: #313526;
+	border-bottom: 1px solid #20221A;
+	border-top: 1px solid #414633;
+}
+
+div#content *.box h2, div#content *.box *.h {
+	background-color: #1a1f18;
+	border-bottom-color: #070806;
+	border-top-color: #353d2f;
+}
+
+h3, *.subh, *.box ul.vnav li, *.box dl.events dd, table.boxTable td {
+	background-color: #4e5946;
+	border-bottom: 1px solid #3D4736;
+	border-top: 1px solid #606F55;
+	color: #fff;
+}
+
+/**
+ * Länkfärger
+ *
+ */
+
+h3 a,
+h3 a:visited,
+h3 a:active,
+*.box *.subh a,
+*.box *.subh a:visited,
+*.box *.subh a:active,
+*.box dl.events a,
+*.box dl.events a:visited,
+*.box dl.events a:active,
+table.boxTable a,
+table.boxTable a:visited,
+table.boxTable a:active,
+*.box ul.vnav a,
+*.box ul.vnav a:active,
+*.box ul.vnav a:visited
+{
+	color: #eacf73;
+}
+
+h3 a:hover,
+*.box *.subh a:hover,
+*.box ul.vnav a:hover,
+*.box dl.events a:hover,
+table.boxTable a:hover
+{
+	color: #f2eed2;
+}
+
+h2 a, .boxHeader a, *.box
+{
+	color: #fff;
+}
+
+*.box *.body a,
+*.box *.body a:active,
+*.box *.body a:visited
+{
+	color: #a6861a;
+}
+
+*.box div.body a:hover
+{
+	color: #deb629;
+}

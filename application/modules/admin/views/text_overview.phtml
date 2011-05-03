@@ -1,0 +1,58 @@
+<?php
+$this->title = $this->type["type_title"];
+$this->navigation = array('Administration', 'Text'); 
+?>
+
+<div class="content">
+	<p>
+		&raquo; <a href="/admin/text/write?typeid=<?php echo $this->type['type_id']; ?>">Skriv ny</a>
+	</p>
+</div>
+
+<?php if ($this->unpublishedTexts): ?>
+	<h3 class="bannerHeader">Inväntande godkännade/publicering</h3>
+	<table class="default">
+		<tr>
+			<th class="left">Titel</th>
+			<th style="width: 100px;">Författare</th>
+			<th style="width: 100px;">Datum</th>
+			<th style="width: 150px;">&nbsp;</th>
+		</tr>
+		<?php foreach ($this->unpublishedTexts as $i => $text): ?>
+			<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+				<td class="left"><a href="/admin/text/write?textid=<?php echo $text['text_id'] ;?>"><?php echo htmlspecialchars($text['text_title']); ?></a></td>
+				<td><a href="/profile/<?php echo $text["member_flatalias"]; ?>"><?php echo $text["member_alias"]; ?></a></td>
+				<td><?php echo $text['text_timestamp']?standardDateNoTime($text['text_timestamp']):'Ej korrekturläst'; ?></td>
+				<td>
+					&raquo; <a href="/admin/text/publish?textid=<?php echo $text['text_id'] ;?>">Publicera</a>
+					&raquo; <a href="#" onclick="if (confirm('Vill du radera denna text?')) self.location = '/admin/text/deletecommit?textid=<?php echo $text['text_id'] ;?>'">Radera</a>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+
+<h3 class="bannerHeader">Mina texter</h3>
+<table class="default">
+	<tr>
+		<th class="left">Titel</th>
+		<th style="width: 100px;">Författare</th>
+		<th style="width: 100px;">Datum</th>
+		<th style="width: 150px;">&nbsp;</th>
+	</tr>
+	<?php foreach ($this->texts as $i => $text): ?>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left"><a href="/admin/text/write?textid=<?php echo $text['text_id'] ;?>"><?php echo htmlspecialchars($text['text_title']); ?></a></td>
+			<td><a href="/profile/<?php echo $text["member_flatalias"]; ?>"><?php echo $text["member_alias"]; ?></a></td>
+			<td><?php echo standardDateNoTime($text['text_timestamp']); ?></td>
+			<td>
+			    <?php if (Catahya_Access::hasPermission($this->type['access_id'],
+		                                  Catahya_Permission_Text::CONFIRM)): ?>
+					&raquo; <a href="/admin/text/publish?textid=<?php echo $text['text_id'] ;?>">Publicera</a>
+				<?php endif; ?>
+				&raquo; <a href="#" onclick="if (confirm('Vill du radera denna text?')) self.location = '/admin/text/deletecommit?textid=<?php echo $text['text_id'] ;?>'">Radera</a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+

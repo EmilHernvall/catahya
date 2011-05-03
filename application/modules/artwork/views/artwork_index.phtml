@@ -1,0 +1,51 @@
+<?php
+$this->title = "Alster";
+$this->navigation = array("Alster");
+?>
+
+<div class="leftColumn">
+	<h3>Välkommen till Catahyas alsteravdelning</h3>
+	
+	<p style="padding-bottom: 10px;">Här är det möjligt för medlemmar att lägga in egna noveller och dikter. Förutsättningarna 
+	är att det är du som skrivit texten, att det inte förekommer några olämpligheter samt att 
+	texten är fantasyrelaterad.</p>
+	
+	<p style="padding-bottom: 10px;">Din novell/dikt kommer att bli granskad av oss avdelningsanvariga. Vi förbehåller oss rätten 
+	att neka de texter som vi inte anser håller tillräckligt hög standard p.g.a. dålig grammatik, 
+	stavning eller annat. Titta noga igenom era texter innan ni postar dem.</p>
+
+	<p style="padding-bottom: 10px;">Har du några frågor, klagomål eller förslag är det oss du ska vända dig till.</p>
+
+	<p style="padding-bottom: 10px;">Du har skribenternas tillåtelse att spara texterna på din dator. Att läsa en längre novell eller 
+	dikt på en datorskärm kan ju bli jobbigt i längden. Detta betyder dock inte att du har rätt att 
+	på något sätt förändra texten eller skicka den vidare utan författarens tillstånd.</p>
+	
+	<h3>Ansvariga</h3>
+	
+	<ul>
+		<li>Askatt</li>
+		<li>Tintaglia</li>
+	</ul>
+</div>
+
+<div class="rightColumn">
+	<h3>Senaste Noveller</h3>
+	
+	<dl>
+		<?php foreach ($this->shortStories as $artwork): ?>
+			<dt style="font-weight: bold;"><a href="/artwork/shortstories/view/<?php echo $artwork["artwork_id"]; ?>"><?php echo htmlspecialchars($artwork["artwork_title"]); ?></a></dt>
+			<dd style="font-style: italic;">Skriven <?php echo standardDate($artwork["artwork_timestamp"]); ?></dd>
+			<dd style="font-style: italic;">Av <a href="/profile/<?php echo $artwork["member_flatalias"]; ?>"><?php echo $artwork["member_alias"]; ?></a></dd>
+		<?php endforeach; ?>
+	</dl>
+	
+	<h3>Senaste Dikter</h3>
+	
+	<dl>
+		<?php foreach ($this->poems as $artwork): ?>
+			<dt style="font-weight: bold;"><a href="/artwork/shortstories/view/<?php echo $artwork["artwork_id"]; ?>"><?php echo htmlspecialchars($artwork["artwork_title"]); ?></a></dt>
+			<dd style="font-style: italic;">Skriven <?php echo standardDate($artwork["artwork_timestamp"]); ?></dd>
+			<dd style="font-style: italic;">Av <?php echo $artwork["member_alias"]; ?></dd>
+		<?php endforeach; ?>
+	</dl>
+</div>

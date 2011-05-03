@@ -1,0 +1,44 @@
+<?php
+$this->css[] = '/css/pages/profile.css';
+$this->navigation = array('Inställningar');
+$this->title = 'Karaktärsinställningar';
+?>
+
+<div class="content">
+	
+	<form method="post" action="/settings/character/charactercommit" class="stdForm">
+
+		<div class="field">
+			<label for="race">Ras</label>
+			<div class="textField">
+				<input type="text" name="race" id="race" maxlength="20" value="<?php echo htmlspecialchars($this->member['character_race']);?>" maxlength="50" />
+			</div>
+		</div>
+			
+		<div class="field">
+			<label for="class">Klass</label>
+			<div class="textField">
+				<input type="text" name="class" id="class" maxlength="20" value="<?php echo htmlspecialchars($this->member['character_class']);?>" maxlength="100" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="alignment">Ståndpunkt</label>
+			<div class="textField">
+				<input type="text" name="alignment" id="alignment" maxlength="20" value="<?php echo htmlspecialchars($this->member['character_alignment']);?>" maxlength="100" /><br />
+			</div>
+		</div>		
+		
+		<div class="field">
+			<label for="description">Beskrivning</label>
+			<div class="textArea">
+				<textarea name="description" id="description" cols="40" rows="15"><?php echo htmlspecialchars($this->member['character_description']);?></textarea>
+			</div>
+		</div>
+		
+		<div class="button">
+		   <button type="submit">Spara</button>
+	    </div>
+	</form>
+
+</div>

@@ -1,0 +1,67 @@
+<?php
+$this->title = "Historik";
+$this->navigation = array($this->member["member_alias"], "Gästbok", "Historik");
+?>
+<h3 class="bannerHeader">Skriv nytt inlägg</h3>
+<div class="content">
+	<form method="post" action="/profile/<?php echo $this->member['member_id']; ?>/guestbook/postCommit?gid=<?php echo $this->postId; ?>" style="margin: 0px;" name="mform" onsubmit="return submitform()" class="stdForm">
+		<div class="field">
+			<label for="msg">Inlägg</label>
+			<div class="textArea">
+				<textarea id="msg" name="msg" rows="5"></textarea>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="secret">Privat</label>
+			<div class="textField">
+				<input type="checkbox" name="secret" value="1" id="secret" />
+				<label for="secret" style="display: inline; float: none; font-weight: normal;">Ja</label>
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit" id="submit_btn" accesskey="s">Skicka</button>
+		</div>
+	</form>
+</div>
+
+<h3 class="bannerHeader">Tidigare inlägg</h3>
+<?php if (count($this->posts) == 0): ?>
+		Inga inlägg :(
+<?php else: ?>
+	<?php foreach ($this->posts as $i => $post): ?>
+		<div style="padding: 5px 10px; margin: 0; background-color: <?php if ($post["guestbook_secret"]) echo "#faa"; else echo ($i&1) == 0 ? '#C0D4B0' : '#FFF'; ?>">
+			<div style="float: left; text-align: center; width: 50px;">
+				<img src="/userdata/avatars/50/<?php echo $post["member_photo"]; ?>" />
+			</div>
+			<dl style="width: 550px; float: right; margin: 0;">
+				<dt style="font-weight: bold;">
+					<a href="/profile/<?php echo $post['member_flatalias']; ?>"><?php echo $post['member_alias']; ?></a> från <?php echo $post['member_city']; ?>, <?php echo standardDate($post['guestbook_timestamp']); ?>
+					<?php if ($post['guestbook_read'] == "0") echo '(Oläst)'; ?>
+				</dt>
+				<dd style="margin: 0;">
+					<p><?php echo outputFormat($post['guestbook_msg']); ?></p>
+				</dd>
+				<dd style="margin: 0; text-align: right;">	
+					<?php if ($_SESSION['id'] == $this->member['member_id']): ?>
+						&raquo; <a href="javascript:popupwindow('/profile/<?php echo $post['guestbook_from']; ?>/guestbook/post?gid=<?php echo $post['guestbook_id']; ?>',300,350)">Besvara</a>
+						&raquo; <a href="javascript:popupwindow('/profile/<?php echo $post['guestbook_from']; ?>/guestbook/history?gid=<?php echo $post['guestbook_id']; ?>',380,500)">Historik</a>
+					<?php endif; ?>
+					<?php if ($_SESSION['id'] == $this->member['member_id'] || ($post['guestbook_read'] == '0' && $post['guestbook_from'] == $_SESSION['id'])): ?>
+						&raquo; <a href="#" onClick="confirmredir('Vill du verkligen ta bort det här inlägget?', '/profile/<?php echo $this->member['member_id']; ?>/guestbook/deleteCommit?gid=<?php echo $post['guestbook_id']; ?>');">Ta bort</a>
+					<?php endif; ?>
+			
+					&raquo; <a href="/profile/<?php echo $post['member_flatalias']; ?>/guestbook">Gå till</a>
+				</dd>
+			</dl>
+			
+			<div class="clear">&nbsp;</div>
+		</div>
+	<?php endforeach; ?>
+<?php endif; ?>
+
+<script type="text/javascript">
+	document.getElementById('msg').focus()
+</script>
+

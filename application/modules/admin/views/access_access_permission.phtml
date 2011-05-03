@@ -1,0 +1,48 @@
+<?php
+$this->title = 'Standardbehörigheter';
+$this->navigation = array('Administration', 'Behörigheter'); 
+?>
+<style type="text/css">
+form label {
+	display: block;
+	font-weight: bold;
+}
+table.accessTable {
+	font-size: 12px; 
+	width: 100%;
+}
+table.accessTable tr td {
+	padding-top: 5px;
+}
+</style>
+
+<div class="content">
+
+	<form method="post" action="/admin/access/accesspermissioncommit<?php echo $this->access?'?accessid='.$this->access['access_id']:''; ?>">
+			
+		<div>
+			<label>Titel</label>
+			<?php echo $this->access?htmlspecialchars($this->access['access_title']):''; ?>
+		</div>
+		
+		<div>
+			<label>Objekt</label>
+			<?php echo $this->access?htmlspecialchars($this->access['object_title']):''; ?>
+		</div>
+		<h3>Behörigheter</h3>
+		<div>
+			<table class="accessTable">
+				<?php foreach ($this->permissions as $bit => $permission): ?>
+					<tr class="permissionRow">
+						<td><input type="checkbox" name="permission[<?php echo $bit; ?>]" value="1" <?php if (($this->access['access_defaultpermission'] & $bit) == $bit) echo 'checked="checked"'; ?>/></td>
+						<td><?php echo htmlspecialchars($permission); ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
+		</div>
+		<div>
+			<input type="submit" value="Ändra" />
+		</div>
+	</form>
+
+</div>

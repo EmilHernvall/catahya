@@ -1,0 +1,56 @@
+<?php
+$this->title = 'Gruppbehörighet';
+$this->navigation = array('Administration', 'Behörigheter'); 
+?>
+<form method="post" action="/admin/access/groupeditcommit" class="stdForm">
+
+	<div class="content">
+		<?php if ($this->group): ?>
+			<input type="hidden" name="groupid" value="<?php echo $this->group['group_id']; ?>" />
+		<?php endif; ?>
+			
+		<div class="field">
+			<label for="title">Titel</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" size="40" value="<?php echo $this->group?htmlspecialchars($this->group['group_title']):''; ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="description">Beskrivning</label>
+			<div class="textArea">
+				<textarea name="description" cols="40" rows="10"><?php echo $this->group?htmlspecialchars($this->group['group_description']):''; ?></textarea>
+			</div>
+		</div>
+		
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+		
+	<h3 class="bannerHeader">Behörigheter</h3>
+
+	<table style="width: 100%; border-spacing: 0;">
+	<?php foreach ($this->access as $i => $access): ?>
+		<tr rowspan="<?php echo (count($access['permissions']) + 1); ?>" style="background-color: <?php echo ($i&1) == 0 ? "#C0D4B0" : "#FFF"; ?>;">
+			<td style="width: 5%; padding-left: 10px;"><input type="checkbox" name="access[<?php echo $access['access_id']; ?>]" value="1" <?php if ($access['group_id']) echo 'checked="checked"'; ?>/></td>
+			<td style="width: 45%;"><?php echo htmlspecialchars($access['access_title']); ?></td>
+			<td colspan="2"><?php if (count($access['permissions'])): ?>Behörigheter<?php else: ?>&nbsp;<?php endif; ?></td>
+		</tr>
+		<?php foreach ($access['permissions'] as $bit => $permission): ?>
+			<tr style="background-color: <?php echo ($i&1) == 0 ? "#C0D4B0" : "#FFF"; ?>;">
+				<td colspan="2">&nbsp;</td>
+				<td><input type="checkbox" name="permission[<?php echo $access['access_id']; ?>][<?php echo $bit; ?>]" value="1" <?php if ($access['group_id'] && ($access['access_permission'] & $bit) == $bit) echo 'checked="checked"'; ?>/></td>
+				<td><?php echo htmlspecialchars($permission); ?></td>
+			</tr>
+		<?php endforeach; ?>
+
+	<?php endforeach; ?>
+	</table>
+		
+	<div class="content">
+		
+		<div>
+			<button type="submit">Ändra</button>
+		</div>
+
+	</div>
+</form>

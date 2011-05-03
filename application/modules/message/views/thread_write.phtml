@@ -1,0 +1,38 @@
+<?php 
+$this->title = 'Skriv nytt inlägg';
+$this->navigation = array('Meddelanden', 'Skriv nytt'); 
+?>
+
+<div class="content">
+
+	<?php flash(); ?>
+	
+	<form method="post" action="/message/thread/writeCommit" class="stdForm">
+		<div class="field">
+		
+			<label for="recv">Mottagare</label>
+			<div class="textField">
+				<input type="text" name="recv" id="recv" class="textfield" value="<?php echo htmlspecialchars($this->to); ?>" />
+			</div>
+		</div>
+	
+		<div class="field">
+			<label for="title">Titel</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" class="textfield" maxlength="100" value="" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="text">Meddelande</label>		
+			<div class="textField">
+				<textarea name="text" cols="66" rows="15" id="text"></textarea>
+			</div>
+		</div>
+			
+		<div class="button">
+			<button type="submit">Skicka</button>
+		</div>
+	</form>
+
+</div>

@@ -1,0 +1,29 @@
+<?php
+if (!$this->embedded) {
+	$this->navigation = array('Community', $this->member['member_alias']);
+	$this->title = 'Gästbok';
+}
+?>
+<?php if (!$this->embedded) echo '<div class="content">'; ?>
+	<form method="post" action="/profile/<?php echo $this->member['member_id']; ?>/guestbook/postCommit?gid=<?php echo $this->post['guestbook_id']; ?>&amp;close" class="stdForm">
+		<div class="field">
+			<label for="msg">Meddelande</label>
+			<div class="textArea">
+				<textarea name="msg" id="msg"></textarea>
+			</div>
+		</div>
+		<div class="field">
+			<label for="secret">Privat</label>
+			<div class="textField">
+				<input type="checkbox" name="secret" value="1" id="secret" <?php echo $this->post['guestbook_secret'] ? 'checked="checked"' : ''; ?>/>
+				Ja
+			</div>
+		</div>
+		<!--<p>
+			&#160;Tecken kvar: <input type="text" id="len" style="width: 45px;" disabled="yes" value="2048" />
+		</p>-->
+		<div class="button">
+			<button type="submit" id="submit_btn" accesskey="s">Skicka</button>
+		</div>
+	</form>
+<?php if (!$this->embedded) echo '</div>'; ?>

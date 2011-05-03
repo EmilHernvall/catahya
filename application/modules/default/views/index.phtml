@@ -1,0 +1,33 @@
+<?php
+$this->title = 'Startsidan';
+$this->navigation = array('Start');
+?>
+
+<?php if (!$this->page): ?>
+<div class="content">
+	Denna sidan är inte skapad än. :(
+</div>
+<?php else: ?>
+	<?php echo wiki_format($this->page['page_text'], $this->wiki["wiki_name"]); ?>
+	
+	<div class="clear">&nbsp;</div>
+	
+	<h3 class="bannerHeader">Senaste Recensioner</h3>
+	
+	<?php foreach ($this->reviews as $review): ?>
+		<h3 style="background-color: #C0D4B0; padding: 5px 5px 5px 10px; font-size: 14px;"><a href="/reviews/index/view?textid=<?php echo $review["text_id"]; ?>"><?php echo htmlspecialchars($review["text_title"]); ?></a></h3>
+		<div class="content">
+			<div style="margin-bottom: 10px; font-style: italic;">
+				Publicerad <?php echo standardDate($review["text_timestamp"], false); ?> 
+				under <?php printf('<a href="/reviews/list/%s">%ser</a>', $review["type_name"], $review["type_title"]); ?>
+				av <?php printf('<a href="/profile/%s">%s</a>', $review["member_flatalias"], $review["member_alias"]); ?>
+			</div>
+			<?php if ($review["image_id"]): ?>
+				<img src="/userdata/text/thumbs/<?php echo $review["image_id"]; ?>.jpg" style="float: right; width: 100px; margin-left: 10px;" />
+			<?php endif; ?>
+			<?php echo outputParagraph($review["text_text"]); ?>
+			<div class="clear">&nbsp;</div>
+		</div>
+	<?php endforeach; ?>
+	
+<?php endif; ?>

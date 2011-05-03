@@ -1,0 +1,55 @@
+<?php
+$this->title = 'Butiken';
+$this->navigation = array('Butiken');
+$this->css[] = '/css/pages/store.css';
+?>
+
+<div class="content">
+    <h3>Information</h3>
+    <div class="body">
+        Hej och välkommen till Catahyas butik! Här kan du beställa våra novellantologier och CD-skivor. Sortimentet kommer att utökas, men detta är vad vi för tillfället erbjuder:
+        <br />
+        <!--<form action="/store/index/postCommit" method="post">
+        <input type="submit" value="test" />
+        </form>-->
+    </div>
+    
+    <h3>Produkter</h3>
+    <div class="body">
+        <hr />
+        
+        <?php //print_r($this->products);  ?>
+        <table cellspacing="2" cellpadding="2" style="border-spacing: 5px;">
+        <?php foreach ($this->products as $product) : ?>
+            <tr class="product">
+            	<td style="">
+            		<a href="/store/product/<?php echo $product['product_id'];?>">
+            		<img class="thumb" src="<?php echo $product['thumbnail_filename'];?>"
+					     alt="thumb" />
+            	</td>
+            	<td>
+            		<a href="/store/product/<?php echo $product['product_id'];?>">
+            		<?php echo $product['product_name']; ?></a> <br /> <br />
+            		<?php echo $product['product_short_description']; ?> <br /><br />
+            		Vikt: <?php echo $product['product_weight']; ?> gram. <br />
+            		Pris: <?php echo $product['product_price']; ?> kr. <br />
+            		Lagerstatus: <?php if ($product['category_name'] == "Kläder"): ?>
+            		<?php echo "Se produktbeskrivning"; ?>
+            			<?php else: ?>
+            				<?php echo stockString($product['stock']);?>
+            			<?php endif; ?> 
+            		<br />
+            		Antal: <input type="text" name="quantity" size="2" />	
+            		<img class="cart" src="/images/store/cart.png"
+						 alt="Lägg till i kundvagn" title="Lägg till i kundvagn" />
+            	</td>
+            </tr>
+            
+            <tr>
+            	<td colspan="2"><hr /></td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+    </div>
+    
+</div>

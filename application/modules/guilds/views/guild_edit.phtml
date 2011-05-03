@@ -1,0 +1,49 @@
+<?php
+$this->title = "Redigera";
+$this->navigation = array('Gillen', htmlspecialchars($this->guild["guild_name"]));
+?>
+
+<div class="content">
+	<?php flash(); ?>
+
+	<form method="post" action="/guilds/<?php echo $this->guild["guild_id"]; ?>/editcommit" class="stdForm">
+		<div class="field">
+			<label for="description">Beskrivning</label>
+			<div class="textField">
+				<textarea name="description" id="description" rows="5"><?php echo htmlspecialchars($this->guild["guild_description"]); ?></textarea>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="text">Text</label>
+			<div class="textField">
+				<textarea name="text" id="text" rows="10"><?php echo htmlspecialchars($this->guild["guild_text"]); ?></textarea>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="requirements">Krav</label>
+			<div class="textField">
+				<textarea name="requirements" id="requirements" rows="5"><?php echo htmlspecialchars($this->guild["guild_requirements"]); ?></textarea>
+			</div>
+		</div>
+		
+		<?php if (Catahya_Access::hasAccess("guild_admin")): ?>
+		<div class="field">
+			<label for="type">Typ</label>
+			<div class="textField">
+				<select name="type" id="type">
+					<option value="general"<?php if ($this->guild['guild_type'] == "open") echo ' selected="selected"'; ?>>Vanligt</option>
+					<option value="catahya"<?php if ($this->guild['guild_type'] == "catahya") echo ' selected="selected"'; ?>>Catahya (Råd)</option>
+					<option value="official"<?php if ($this->guild['guild_type'] == "official") echo ' selected="selected"'; ?>>Officiellt</option>
+					<option value="hidden"<?php if ($this->guild['guild_type'] == "hidden") echo ' selected="selected"'; ?>>Dold</option>
+				</select>
+			</div>
+		</div>
+		<?php endif; ?>
+		
+		<div class="button">
+			<button name="submit">Spara</button>
+		</div>
+	</form>
+</div>

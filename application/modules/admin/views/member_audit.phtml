@@ -1,0 +1,94 @@
+<?php
+$this->title = "Addressuppgifter";
+$this->navigation = array("Medlemmar", "Medlemsadministration");
+?>
+
+<div class="content">
+
+	<form method="post" action="/admin/member/auditcommit?memberid=<?php echo $this->member["member_id"]; ?>" class="stdForm">
+
+		<div class="field">
+			<label for="email">Alias</label>
+			<div class="textField">
+				<?php echo $this->member["member_alias"]; ?>
+			</div>
+		</div>
+	
+		<div class="field">
+			<label for="email">E-post</label>
+			<div class="textField">
+				<input type="text" name="email" id="email" value="<?php echo htmlspecialchars($this->member["member_email"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="firstname">Förnamn</label>
+			<div class="textField">
+				<input type="text" name="firstname" id="firstname" value="<?php echo htmlspecialchars($this->member["member_firstname"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="surname">Efternamn</label>
+			<div class="textField">
+				<input type="text" name="surname" id="surname" value="<?php echo htmlspecialchars($this->member["member_surname"]); ?>" />
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="address">Gatuadress</label>
+			<div class="textField">
+				<input type="text" name="address" id="address" value="<?php echo htmlspecialchars($this->member["member_address"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="zipcode">Postnummer</label>
+			<div class="textField">
+				<input type="text" name="zipcode" id="zipcode" value="<?php echo htmlspecialchars($this->member["member_zipcode"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="city">Ort</label>
+			<div class="textField">
+				<input type="text" name="city" id="city" value="<?php echo htmlspecialchars($this->member["member_city"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="country">Land</label>
+			<div class="textField">
+				<input type="text" name="country" id="country" value="<?php echo htmlspecialchars($this->member["member_country"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="phonenr">Telefonnummer</label>
+			<div class="textField">
+				<input type="text" name="phonenr" id="phone" value="<?php echo htmlspecialchars($this->member["member_phonenr"]); ?>" />
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="ssn">Personnummer</label>
+			<div class="textField">
+				<input type="text" name="ssn" id="ssn" value="<?php echo htmlspecialchars($this->member["member_ssn"]); ?>" />
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="message">Meddelande</label>
+			<div class="textField">
+				<textarea name="message" id="message"></textarea>
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit" name="do" value="accept">Godkänn</button>
+			<button type="submit" name="do" value="reject">Avslå</button>
+			<button type="submit" name="do" value="save">Spara utan ändringar</button>
+		</div>
+	
+	</form>
+</div>

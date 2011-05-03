@@ -1,0 +1,107 @@
+<?php
+$this->title = 'Meddelanden - ' . $this->folder['folder_name'];
+$this->navigation = array('Community', 'Meddelanden');
+?>
+<?php flash(); ?>
+<form method="post" action="/message/index/movedeletecommit">
+
+	<div style="padding: 5px;">
+		<div style="width: 25%; float: left;">
+			<?php if ($this->currentPage > 1): ?>
+				&laquo; <a href="/message/index?folderid=<?php echo $this->folder["folder_id"]; ?>&page=<?php echo $this->currentPage - 1; ?>">Nästa</a>
+			<?php else: ?>
+				&nbsp;
+			<?php endif; ?>
+		</div>
+		<div style="width: 50%; float: left; text-align: center;">
+			Visar sidan <b><?php echo $this->currentPage; ?></b> av <b><?php echo $this->totalPages; ?></b> 
+			(<?php echo $this->postCount; ?> inlägg av totalt <?php echo $this->totalCount; ?>)
+		</div>
+		<div style="width: 25%; float: left; text-align: right;">
+			<?php if ($this->currentPage < $this->totalPages): ?>
+				<a href="/message/index?folderid=<?php echo $this->folder["folder_id"]; ?>&page=<?php echo $this->currentPage + 1; ?>">Föregående</a> &raquo;
+			<?php else: ?>
+				&nbsp;
+			<?php endif; ?>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+
+	<table class="default">
+		<tr>
+			<th class="flags">&#160;</th>
+			<th>Ämne</th>
+			<th class="member">Medlem</th>
+			<th class="timestamp">Datum</th>
+		</tr>
+		<?php if (count($this->messages) == 0): ?>
+			<tr>
+				<td colspan="4" style="padding: 20px; text-align: center; font-size: 1.2em;">Inga meddelanden!</td>
+			</tr>
+		<?php else: ?>
+			<?php foreach ($this->messages as $i => $message): ?>
+				<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>" style="font-weight: <?php echo $message["thread_read"] ? "normal" : "bold"; ?>">
+					<td><input type="checkbox" name="mark[<?php echo $message['thread_id']; ?>]" value="1" /></td>
+					<td><a href="/message/thread?id=<?php echo $message['thread_id']; ?>"><?php echo htmlspecialchars($message['thread_title']); ?></a></td>
+					<td>
+						<?php if ($message["thread_role"] == "r"): ?>
+							Från:
+						<?php else: ?>
+							Till:
+						<?php endif; ?>
+						<?php foreach ($message["members"] as $member): ?>
+							<a href="/profile/<?php echo $member["member_flatalias"]; ?>"><?php echo $member["member_alias"]; ?></a><br />
+						<?php endforeach; ?>
+					</td>
+					<td><?php echo standardDate($message['thread_lasttimestamp']); ?></td>
+				</tr>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</table>
+	
+	<div style="padding: 5px;">
+		<div style="width: 25%; float: left;">
+			<?php if ($this->currentPage > 1): ?>
+				&laquo; <a href="/message/index?folderid=<?php echo $this->folder["folder_id"]; ?>&page=<?php echo $this->currentPage - 1; ?>">Nästa</a>
+			<?php else: ?>
+				&nbsp;
+			<?php endif; ?>
+		</div>
+		<div style="width: 50%; float: left; text-align: center;">
+			Visar sidan <b><?php echo $this->currentPage; ?></b> av <b><?php echo $this->totalPages; ?></b> 
+			(<?php echo $this->postCount; ?> inlägg av totalt <?php echo $this->totalCount; ?>)
+		</div>
+		<div style="width: 25%; float: left; text-align: right;">
+			<?php if ($this->currentPage < $this->totalPages): ?>
+				<a href="/message/index?folderid=<?php echo $this->folder["folder_id"]; ?>&page=<?php echo $this->currentPage + 1; ?>">Föregående</a> &raquo;
+			<?php else: ?>
+				&nbsp;
+			<?php endif; ?>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+	
+	<div class="content">
+	
+		<div style="float: left;">
+			<input type="submit" name="type" value="Ta bort" />
+		</div>
+		
+		<div style="float: right;">
+			<select name="newfolderid">
+				<?php foreach ($this->folders as $folder): ?>
+					<option value="<?php echo $folder['folder_id']; ?>">
+						<?php echo htmlspecialchars($folder['folder_name']); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+			
+			<input type="submit" name="type" value="Flytta" />
+		</div>
+		
+		<br style="clear: both;" />
+		
+	</div>
+	
+</form>
+

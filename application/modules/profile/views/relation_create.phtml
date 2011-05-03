@@ -1,0 +1,48 @@
+<?php
+$this->title = "Ny Relation";
+$this->navigation = array('Community', '/profile/'.$this->member['member_flatalias'] => $this->member['member_alias'], 'Ny Relation');
+?>
+<div class="content">
+<form method="post" action="/profile/<?php echo $this->member['member_id']; ?>/relation/createCommit" class="stdForm">
+<input type="hidden" name="member1" value="<?php echo $_SESSION['id']; ?>" />
+<input type="hidden" name="member2" value="<?php echo $this->member['member_id']; ?>" />
+
+	<p>
+		Ifall du vill kan du använda beskrivningsfältet för att andra ska kunna se hur ni känner varandra.
+	</p>
+	
+	<div class="field">
+		<label for="action_">Namn</label>
+		<div class="textField">
+			<?php echo $this->member['member_alias']; ?>
+		</div>
+	</div>
+	
+	<div class="field">
+		<label for="action_">Beskrivning</label>
+		<div class="textField">
+			<input type="text" name="action_" id="action" maxlength="20" value="Kompis" />
+		</div>
+	</div>
+
+	<div class="field">
+		<label for="irl">Vi har träffats</label>
+		<div class="textField">
+			<?php if ($this->relation): 
+				// Values for disabled checkboxes are not submitted.
+				// That's what the hidden field is for.
+				?>
+				<input type="hidden" name="irl" value="1" />
+				<input type="checkbox" name="irl2" id="irl2" value="1" <?php if ($this->relation['relation_irl'] == '1') echo 'checked="checked"'; ?> disabled="disabled" />
+			<?php else: ?>
+				<input type="checkbox" name="irl" id="irl" value="1" <?php if ($this->relation['relation_irl'] == '1') echo 'checked="checked"'; ?> <?php if ($this->relation['relation_irl'] != '') echo 'disabled="disabled"'; ?>/>
+			<?php endif; ?>
+			Ja
+		</div>
+	</div>
+	
+	<div class="button">
+		<button type="submit">Skicka förfrågan</button>
+	</div>
+</form>
+</div>

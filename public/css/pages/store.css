@@ -1,0 +1,29 @@
+hr {
+	margin-top: 0px;
+	border: none;
+	height: 1px;
+	color: #000;
+	background-color: #000;
+}
+
+.thumb { 
+	border: 1px solid #000;
+}
+
+.short_desc {
+	float: left;
+	vertical-align: top;
+	margin-left: 12px;
+}
+
+.product {
+	margin-top: 2px;
+	position: relative;
+	font-size: 12px;
+	/*height: 128px;*/
+	vertical-align:top;
+}
+
+.cart {
+	margin-top: 3px;
+}

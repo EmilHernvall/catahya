@@ -1,0 +1,29 @@
+<?php
+$this->title = 'Spelrecensioner';
+$this->navigation = array('Recensioner', 'Spel');
+?>
+<table class="default">
+	<colgroup>
+		<col />
+		<col />
+		<col />
+		<col width="20%" />
+		<col />
+	</colgroup>
+	<tr>
+		<th class="left"><a href="/reviews/list/games?sort=0" style="color: #fff;">Titel</a></th>
+		<th><a href="/reviews/list/games?sort=3" style="color: #fff;">Speltyp</a></th>
+		<th><a href="/reviews/list/games?sort=2" style="color: #fff;">Skribent</a></th>
+		<th><a href="/reviews/list/games?sort=1" style="color: #fff;">Publicerad</a></th>
+		<th><a href="/reviews/list/games?sort=4" style="color: #fff;">Betyg</a></th>
+	</tr>
+	<?php foreach ($this->texts as $i => $text): ?>
+		<tr class="<?php echo ($i&1) == 0 ? "even" : "odd"; ?>">
+			<td class="left"><a href="/reviews/index/view?textid=<?php echo $text['text_id']; ?>"><?php echo htmlspecialchars($text['text_title']); ?></a></td>
+			<td><?php echo htmlspecialchars($text['game_type']); ?></td>
+			<td><a href="/profile/<?php echo $text['member_flatalias']; ?>"><?php echo $text['member_alias']; ?></a></td>
+			<td><?php echo standardDate($text['text_timestamp'],false); ?></td>
+			<td><?php echo $text['game_grade']; ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>

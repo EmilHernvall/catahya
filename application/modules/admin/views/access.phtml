@@ -1,0 +1,46 @@
+<?php
+$this->title = 'Behörighter';
+$this->navigation = array('Administration', 'Behörigheter');
+?>
+<div class="content">
+	
+	<p>
+		Catahyas behörigheter består av en lista med funktioner. Dessa funktioner kan
+		ha från 0 till 31 st olika behörighetsnivåer. T.ex. så har du antingen tillgång
+		till att validera medlemmar eller inte, och därför finns inga behörigheter för denna
+		funktion. Däremot så har alla i hemsiderådet tillgång till det forumet, men bara de
+		ansvariga har moderatorbehörighet. Forumen har därför en mängd behörigheter.
+	</p>
+	
+	<p style="padding-top: 10px;">
+		Aanvändare och grupper kan tilldelas tillgång till funktionerna som finns inlagda. 
+		Ifall det då finns några behörigheter för funktionen kan man däremot välja det när 
+		man tilldelar någon en funktion. 
+	</p>
+	
+	<p style="padding-top: 10px;">
+		Användarbehörigheterna har högre prioritet än gruppbehörigheterna. Ifall en person
+		är medlem i en grupp med en viss behörighet till en viss funktion men även har 
+		tilldelats en högre behörighet personligen så kommer den personliga behörigheten att
+		gälla.
+	</p>
+	
+</div>
+	
+<h3 class="bannerHeader">Sök medlem</h3>	
+<div class="content">
+	
+	<form method="get" action="/admin/access/memberedit" class="stdForm">
+		<div class="field">
+			<label for="id">Alias eller Id:</label>
+			<div class="textField">
+				<input type="text" name="id" id="id" size="40" />
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Sök</button>
+		</div>
+	</form>
+
+</div>

@@ -1,0 +1,138 @@
+<?php
+$this->navigation = array('Community', $this->member['member_alias']);
+$this->css[] = '/css/pages/guestbook.css';
+$this->js[] = '/js/sendmsg.js';
+$this->js[] = '/js/guestbook.js';
+$this->css[] = '/css/guestbook.css';
+$this->title = 'Gästbok';
+?>
+
+<?php if ($this->member["member_id"] != $_SESSION["id"]): ?>
+<h3 class="bannerHeader">Skriv nytt inlägg</h3>
+
+<div class="content">
+	
+	<form class="stdForm" method="post" action="/profile/<?php echo $this->member['member_id']; ?>/guestbook/postCommit" name="mform" onsubmit="return submitform()">
+		
+		<?php flash(); ?>
+	
+		<?php if ($_SESSION['online']): ?>
+			<div class="field">
+				<label for="msg">Inlägg</label>
+				<div class="textArea">
+					<textarea id="msg" name="msg" rows="5"></textarea>
+				</div>
+			</div>
+			
+			<div class="field">
+				<label for="secret">Privat</label>
+				<div class="textField">
+					<input type="checkbox" name="secret" value="1" id="secret" />
+					<label for="secret" style="display: inline; float: none; font-weight: normal;">Ja</label>
+				</div>
+			</div>
+			
+			<div class="button">
+				<button type="submit" id="submit_btn" accesskey="s">Skicka</button>
+			</div>
+		<?php else: ?>
+			<p>
+				Du måste vara inloggad för att kunna skriva gästboksinlägg!
+			</p>
+		<?php endif; ?>
+	</form>
+	
+	<script type="text/javascript">
+		document.getElementById('msg').focus()
+	</script>
+	
+</div>
+<?php endif; ?>
+
+
+<h3 class="bannerHeader">Gästbok</h3>
+<?php if ($this->postCount == 0): ?>
+	<div class="content" style="padding: 0 20px 20px 20px; font-size: 1.2em; text-align: center;">
+		Inga inlägg :(
+	</div>
+<?php else: ?>
+	<div style="padding: 5px;">
+		<div style="width: 25%; float: left;">
+			<?php if ($this->currentPage > 1): ?>
+				&laquo; <a href="/profile/<?php echo $this->member["member_flatalias"]; ?>/guestbook?pg=<?php echo $this->currentPage - 1; ?>">Nästa</a>
+			<?php else: ?>
+				&nbsp;
+			<?php endif; ?>
+		</div>
+		<div style="width: 50%; float: left; text-align: center;">
+			Visar sidan <b><?php echo $this->currentPage; ?></b> av <b><?php echo $this->totalPages; ?></b> 
+			(<?php echo $this->postCount; ?> inlägg av totalt <?php echo $this->totalCount; ?>)
+		</div>
+		<div style="width: 25%; float: left; text-align: right;">
+			<?php if ($this->currentPage < $this->totalPages): ?>
+				<a href="/profile/<?php echo $this->member["member_flatalias"]; ?>/guestbook?pg=<?php echo $this->currentPage + 1; ?>">Föregående</a> &raquo;
+			<?php else: ?>
+				&nbsp;
+			<?php endif; ?>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+
+	<?php foreach ($this->posts as $i => $post): ?>
+		<div style="padding: 5px 10px; margin: 1px 0 0 0; background-color: <?php if ($post["guestbook_secret"]) echo "#faa"; else echo ($i&1) == 0 ? '#C0D4B0' : '#FFF'; ?>">
+			<div style="float: left; text-align: center; width: 50px;">
+				<img src="/userdata/avatars/50/<?php echo $post["member_photo"]; ?>" />
+			</div>
+			<dl style="width: 550px; float: right; margin: 0;">
+				<dt style="font-weight: bold;">
+					<a name="post<?php echo $post["guestbook_id"]; ?>">
+						<a href="/profile/<?php echo $post['member_flatalias']; ?>"><?php echo $post['member_alias']; ?></a> skrivet <?php echo standardDate($post['guestbook_timestamp']); ?>
+						<?php if ($post['guestbook_read'] == "0") echo '(Oläst)'; ?>
+						<?php if ($post['guestbook_secret'] == "1") echo '(Privat)'; ?>
+						<?php if ($post['guestbook_read'] > 0 && $post['guestbook_answered'] == '0') echo '(Obesvarad)'; ?>
+					</a>
+				</dt>
+				<dd style="margin: 0;">
+					<p><?php echo outputFormat($post['guestbook_msg']); ?></p>
+				</dd>
+				<dd style="margin: 0; text-align: right;">	
+					<?php if ($_SESSION['id'] == $this->member['member_id']): ?>
+						&raquo; <a class="replyLink" id="replyLink-<?php echo $post["guestbook_id"]; ?>-<?php echo $post["guestbook_from"]; ?>" href="/profile/<?php echo $post['guestbook_from']; ?>/guestbook/post?gid=<?php echo $post['guestbook_id']; ?>">Besvara</a>
+						&raquo; <a href="/profile/<?php echo $post['guestbook_from']; ?>/guestbook/history?gid=<?php echo $post['guestbook_id']; ?>">Historik</a>
+					<?php endif; ?>
+					<?php if ($_SESSION['id'] == $this->member['member_id'] || ($post['guestbook_read'] == '0' && $post['guestbook_from'] == $_SESSION['id'])): ?>
+						&raquo; <a href="#" onClick="confirmredir('Vill du verkligen ta bort det här inlägget?', '/profile/<?php echo $this->member['member_id']; ?>/guestbook/deleteCommit?gid=<?php echo $post['guestbook_id']; ?>');">Ta bort</a>
+					<?php endif; ?>
+			
+					&raquo; <a href="/profile/<?php echo $post['member_flatalias']; ?>/guestbook">Gå till</a>
+				</dd>
+			</dl>
+			
+			<div class="clear">&nbsp;</div>
+			<div id="inlineComment<?php echo $post["guestbook_id"]; ?>"></div>
+		</div>
+	<?php endforeach; ?>
+	
+	<div style="padding: 5px; border-top: 1px solid <?php echo (count($this->posts)&1) == 0 ? '#C0D4B0' : '#FFF'; ?>">
+		<div style="width: 25%; float: left;">
+			<?php if ($this->currentPage > 1): ?>
+				&laquo; <a href="/profile/<?php echo $this->member["member_flatalias"]; ?>/guestbook?pg=<?php echo $this->currentPage - 1; ?>">Nästa</a>
+			<?php else: ?>
+				&nbsp;
+			<?php endif; ?>
+		</div>
+		<div style="width: 50%; float: left; text-align: center;">
+			Visar sidan <b><?php echo $this->currentPage; ?></b> av <b><?php echo $this->totalPages; ?></b> 
+			(<?php echo $this->postCount; ?> inlägg av totalt <?php echo $this->totalCount; ?>)
+		</div>
+		<div style="width: 25%; float: left; text-align: right;">
+			<?php if ($this->currentPage < $this->totalPages): ?>
+				<a href="/profile/<?php echo $this->member["member_flatalias"]; ?>/guestbook?pg=<?php echo $this->currentPage + 1; ?>">Föregående</a> &raquo;
+			<?php else: ?>
+				&nbsp;
+			<?php endif; ?>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+<?php endif; ?>
+

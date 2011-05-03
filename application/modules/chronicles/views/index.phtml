@@ -1,0 +1,35 @@
+<?php
+$this->title = 'Kr&ouml;nikor';
+$this->navigation = array('Kr&ouml;nikor');
+?>
+<div class="leftColumn">
+	<?php $i = 0; ?>
+	<?php while(($text = array_shift($this->latest)) && $i++ < 4): ?>
+		<h3><a href="/chronicles/index/view?textid=<?php echo $text['text_id']; ?>"><?php echo htmlspecialchars($text['text_title']); ?></a></h3>
+		<div style="font-style: italic;">
+			<?php echo standardDate($text['text_timestamp'], false); ?> 
+			av <a href="/profile/<?php echo $text['member_flatalias']; ?>"><?php echo $text['member_alias']; ?></a>
+		</div>
+		<p style="padding-bottom: 10px;">
+			<?php echo $text["text_pretext"] ? outputFormat($text["text_pretext"]) : outputParagraph($text['text_text']); ?>
+		</p>
+	<?php endwhile; ?>
+</div>
+<div class="rightColumn">
+	<h3>Sök</h3>
+	
+	<input type="text" style="width: 180px;" /> <input type="submit" value="Sök" />
+	
+	<h3 style="margin-top: 10px;">Tidigare kr&ouml;nikor</h3>
+	<dl class="events">
+	<?php foreach($this->latest as $text): ?>
+		<dt><a href="/chronicles/index/view?textid=<?php echo $text['text_id']; ?>"><?php echo htmlspecialchars($text['text_title']); ?></a></dt>
+		<dd>
+			<?php echo standardDate($text['text_timestamp'], false); ?>
+			av <a href="/profile/<?php echo $text['member_flatalias']; ?>"><?php echo $text['member_alias']; ?></a>
+		</dd>
+	<?php endforeach; ?>
+	</dl>
+</div>
+
+<div style="clear: both;">&nbsp;</div>

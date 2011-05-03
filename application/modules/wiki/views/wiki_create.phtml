@@ -1,0 +1,39 @@
+<?php
+if ($this->name == 'index') {
+	$this->title = "Skapa huvudsida";
+	$this->navigation = array($this->wiki['wiki_title']);
+} else {
+	$this->title = "Skapa undersida";
+	$this->navigation = array($this->wiki['wiki_title'], $this->page['page_title']);
+}
+?>
+
+<div class="content">
+
+	<?php flash(); ?>
+
+	<form method="post" action="/<?php echo $this->wikiName; ?><?php if (!$this->root) echo '/'.$this->name; ?>?action=save" class="stdForm">
+
+		<input type="hidden" name="create" value="1" />
+
+		<div class="field">
+			<label>Titel</label>
+			<div class="textField">
+				<input type="text" name="title" size="60" maxlength="100" value="" />
+			</div>
+		</div>
+
+		<div class="field">
+			<label>Inneh&aring;ll</label>
+			<div class="textArea">
+				<textarea name="text" rows="15" cols="60"></textarea>
+			</div>
+		</div>
+
+		<div class="button">
+			<button type="submit">Spara</button>
+		</div>
+	</form>
+</div>
+
+<div style="clear: both;">&nbsp;</div>

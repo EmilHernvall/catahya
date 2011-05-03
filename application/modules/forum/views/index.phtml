@@ -1,0 +1,27 @@
+<?php
+$this->title = 'Forum';
+$this->navigation = array('Forum', 'Index');
+?>
+
+<?php foreach ($this->categories as $category): 
+	if (!count($category['forums'])) continue;
+	?>
+	<h3 class="bannerHeader"><?php echo htmlspecialchars($category['category_name']); ?></h3>
+	<?php foreach ($category['forums'] as $i => $forum): ?>
+		<div style="padding: 5px; background-color: <?php echo ($i&1) == 0 ? "#C0D4B0" : "#fff"; ?>">
+			<h4><a href="/forum/<?php echo $forum['forum_id']; ?>"><?php echo htmlspecialchars($forum['forum_name']); ?></a></h4>
+			<div style="margin-bottom: 5px; padding-left: 15px;">
+				<p>
+					<?php echo outputFormat($forum['forum_description'], false); ?>
+				</p>
+				
+				<p style="font-style: italic; text-align: left;">
+					<?php echo $forum['forum_replycount']; ?> inlägg i <?php echo $forum['forum_threadcount']; ?> trådar. 
+					<?php if ($forum['forum_lasttimestamp']): ?>
+						Senaste inlägg <?php echo standardDate($forum['forum_lasttimestamp']); ?> av <a href="/profile/<?php echo $forum['member_flatalias']; ?>"><?php echo $forum['member_alias']; ?></a>.
+					<?php endif; ?>
+				</p>
+			</div>
+		</div>
+	<?php endforeach; ?>
+<?php endforeach; ?>

@@ -1,0 +1,81 @@
+<?php
+$this->css[] = '/css/pages/profile.css';
+$this->navigation = array('Community', $this->member['member_alias']);
+$this->title = $this->member['member_alias'];
+?>
+
+<div class="content">
+
+	<?php if ($this->member['character_race'] != ""): ?>
+		<div style="float: left; width: 45%;"><?php echo htmlspecialchars($this->member['character_race']) . ' / ' . htmlspecialchars($this->member['character_class']);?> </div>
+	<?php endif; ?>
+		
+	<div style="float: right; width 45%; text-align: right;">
+		<?php if ($this->member['member_online']): ?>
+			Inloggad
+		<?php else: ?>
+			Utloggad
+		<?php endif; ?>
+	</div>
+	
+	<p style="clear: both; padding-top: 10px;">
+		<div class="infoBox" style="overflow: hidden;">
+			<h4>Personligt</h4>
+			<dl>	
+				
+				<dt>Namn:</dt>
+				<dd>
+					<?php echo htmlspecialchars($this->member['member_name']); ?>
+				</dd>					
+				<dt>Kön:</dt>
+				<dd>
+					<?php echo $this->member['member_gender'] == 'male' ? "Man" : "Kvinna"; ?>
+				</dd>
+				
+				<dt>Ålder:</dt>
+				<dd><?php echo $this->member["member_age"]; ?> år</dd>
+				
+				<dt>Stad:</dt>
+				<dd><?php echo htmlspecialchars($this->member['member_city']); ?></dd>
+				
+				<?php if ($this->member['member_email'] && $_SESSION["online"]): ?>
+					<dt>E-mail:</dt>
+					<dd>
+						<a href="mailto:<?php echo htmlspecialchars($this->member['member_email']); ?>"><?php echo dotTruncate(htmlspecialchars($this->member['member_email']), 20); ?></a>
+					</dd>
+				<?php endif; ?>
+				
+				<?php if ($this->member['member_msn']): ?>
+					<dt>MSN:</dt>
+					<dd>
+						<?php echo htmlspecialchars($this->member['member_msn']); ?>
+					</dd>
+				<?php endif; ?>
+				
+				<dt>Hemsida:</dt>
+				<dd>
+					<?php if ($this->member['member_homepage']): ?>
+						<a href="<?php echo fixLink(htmlspecialchars($this->member['member_homepage'])); ?>" target="new"><?php echo dotTruncate(htmlspecialchars($this->member['member_homepage']), 20); ?></a>
+					<?php else: ?>
+						&nbsp;
+					<?php endif; ?>
+				</dd>
+				
+				<dt>Gick med:</dt>
+				<dd><?php echo standardDate($this->member['member_memberdate']); ?></dd>
+				
+				<dt>Inloggad:</dt>
+				<dd><?php echo standardDate($this->member['member_lastlogin']); ?></dd>
+				
+			</dl>
+		</div>
+		
+		<?php if ($this->member['member_presentation']): ?>
+			<?php echo outputFormat($this->member['member_presentation']); ?>
+		<?php else: ?>
+			Ingen presentation skapad
+		<?php endif; ?>
+		<br class="break" />
+	</p>
+
+</div>

@@ -1,0 +1,53 @@
+<?php
+$levelKey = array("open" => 0, "member" => 1, "moderator" => 2, "admin" => 3);
+?>
+<?php if (Catahya_Access::hasAccess("guild_admin")): ?>
+	<p style="font-style: italic; margin-bottom: 10px;">Du har full behörighet till samtliga gillen.</p>
+<?php endif; ?>
+
+<ul class="navMenu">
+	<li><a href="/guilds">Start</a></li>
+	<?php if ($_SESSION["online"]): ?>
+		<li><a href="/guilds/index/create">Skapa nytt</a></li>
+	<?php endif; ?>
+</ul>
+
+<?php if (isset($this->guild)): ?>
+	<h4 style="margin-top: 10px;"><?php echo htmlspecialchars($this->guild["guild_name"]); ?></h4>
+	<ul class="navMenu">
+		<li><a href="/guilds/<?php echo $this->guild["guild_id"]; ?>">Gille</a></li>
+		<?php if (($this->member && $this->member["level_id"]) || Catahya_Access::hasAccess("guild_admin")): ?>
+		
+			<?php if ($this->member["level_access"] == "admin" || Catahya_Access::hasAccess("guild_admin")): ?>
+				<li><a href="/guilds/<?php echo $this->guild["guild_id"]; ?>/edit">Redigera</a></li>
+				<li><a href="/guilds/<?php echo $this->guild["guild_id"]; ?>/logotype">Logotype</a></li>
+				<li><a href="/guilds/<?php echo $this->guild["guild_id"]; ?>/forum">Forum</a></li>
+				<li><a href="/guilds/<?php echo $this->guild["guild_id"]; ?>/members">Medlemmar</a></li>
+				<li><a href="/guilds/<?php echo $this->guild["guild_id"]; ?>/level">Beh&ouml;righeter</a></li>
+			<?php endif; ?>
+		<?php elseif (!$this->member && $_SESSION["online"]): ?>
+			<li>G&aring; med</li>
+		<?php endif; ?>
+	</ul>
+	
+	<?php if ($this->forums && $this->member && $this->member["level_id"]): ?>
+		<h4 style="margin-top: 10px;">Forum</h4>
+		<ul class="navMenu">
+			<?php foreach ($this->forums as $forum): 
+				if ($levelKey[$forum["forum_guildlevel"]] > $levelKey[$this->member["level_access"]]) continue;
+				?>
+				<li><a href="/forum/<?php echo $forum["forum_id"]; ?>"><?php echo htmlspecialchars($forum["forum_name"]); ?></a></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+<?php endif; ?>
+
+<?php if (count($this->myGuilds)): ?>
+	<h4 style="margin-top: 10px;">Mina gillen</h4>
+	<ul class="navMenu">
+		<?php foreach ($this->myGuilds as $guild): 
+			?>
+			<li><a href="/guilds/<?php echo $guild["guild_id"]; ?>"><?php echo htmlspecialchars($guild["guild_name"]); ?></a></li>
+		<?php endforeach; ?>
+	</ul>
+<?php endif; ?>

@@ -1,0 +1,40 @@
+.form_label {
+	width: 20%;
+	float: left;
+}
+.form_textarea {
+	height: 100px;
+	width: 75%;
+	float: left;
+}
+.form_infowrapper {
+	padding-top: 5px;
+	clear: both;
+}
+.form_secret, .form_charcount, .form_submit {
+	display: block;
+	float: left;
+	width: 32%;
+	height: 25px;
+}
+.form_secret {
+	padding-top: 2px;
+	padding-bottom: 2px;
+	text-align: left;
+}
+.form_charcount {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.form_submit {
+	padding-left: 10px;
+	text-align: left;
+}
+.form_footer {
+	clear: both;
+}
+.noposts {
+	padding: 10px;
+	text-align: center;
+	font-size: 12px;
+}

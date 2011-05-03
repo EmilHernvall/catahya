@@ -1,0 +1,58 @@
+<?php
+$this->title = "Skriv ny";
+$this->navigation = array("Alster", $this->type["type_title"]);
+?>
+<div class="content">
+	<?php flash(); ?>
+
+	<?php if ($this->errors): ?>
+		<p>Ditt formul&auml;r inneh&ouml;ll fel:</p>
+		<ul>
+			<?php foreach ($this->errors as $error): ?>
+				<li><?php echo $error; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+
+	<form method="post" action="/artwork/<?php echo $this->type["type_name"]; ?>/writeCommit" class="stdForm">
+		<div class="field">
+			<label for="title">Titel</label>
+			<div class="textField">
+				<input type="text" name="title" id="title" value="<?php echo array_key_exists("title", $this->fields) ? htmlspecialchars($this->fields["title"]) : ""; ?>" />
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="subtype">Typ</label>
+			<div class="textField">
+				<select name="subtype" id="subtype">
+					<?php foreach ($this->subtypes as $subtype): ?>
+						<option value="<?php echo $subtype["subtype_id"]; ?>" <?php echo array_key_exists("subtype", $this->fields) && $this->fields["subtype"] == $subtype["subtype_id"] ? 'selected="selected"' : ""; ?>><?php echo htmlspecialchars($subtype["subtype_title"]); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="language">Spr&aring;k</label>
+			<div class="textField">
+				<select name="language" id="language">
+					<?php foreach ($this->languages as $language): ?>
+						<option value="<?php echo $language["language_id"]; ?>" <?php echo array_key_exists("language", $this->fields) && $this->fields["language"] == $language["language_id"] ? 'selected="selected"' : ""; ?>><?php echo htmlspecialchars($language["language_title"]); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="text">Text</label>
+			<div class="textArea">
+				<textarea name="text" id="text" rows="20"><?php echo array_key_exists("text", $this->fields) ? htmlspecialchars($this->fields["text"]) : ""; ?></textarea>
+			</div>
+		</div>
+
+		<div class="button">
+			<button type="submit">Skicka</button>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,26 @@
+<?php
+wiki_drawMenuTree($this->tree, $this->wikiName, $this->page['page_id']);
+?>
+
+<?php if ($_SESSION['online'] && Catahya_Access::hasPermission($this->wiki['access_id'], 
+                                                               Catahya_Permission_Wiki::EDIT, 
+															   $this->wiki['access_defaultpermission'])): ?>
+	<h4 style="margin-top: 10px;">Wiki</h4>
+	<ul class="navMenu">
+		<?php if ($this->page['parent_title']): ?>
+			<li><a href="/<?php echo $this->wikiName; ?>/<?php echo $this->page['parent_name']; ?>">Upp en niv&aring;</a></li>
+		<?php endif; ?>
+		<li><a href="#">Historik</a></li>
+		
+		<?php if (Catahya_Access::hasPermission($this->wiki['access_id'], Catahya_Permission_Wiki::EDIT, $this->wiki['access_defaultpermission'])): ?>
+			<li><a href="/<?php echo $this->wikiName; ?>/<?php echo $this->page['page_name']; ?>?action=edit">Redigera</a></li>
+			<?php if ($this->page['parent_title']): ?>
+				<li><a href="/<?php echo $this->wikiName; ?>/<?php echo $this->page['parent_name']; ?>?action=create">Skapa ny sida</a></li>
+			<?php else: ?>
+				<li><a href="/<?php echo $this->wikiName; ?>?action=create">Skapa ny sida</a></li>
+			<?php endif; ?>
+			<li><a href="/<?php echo $this->wikiName; ?>/<?php echo $this->page['page_name']; ?>?action=create">Skapa ny undersida till <?php echo htmlspecialchars($this->page['page_title']); ?></a></li>
+			<li><a href="/<?php echo $this->wikiName; ?>/<?php echo $this->page['page_name']; ?>?action=delete">Radera</a></li>
+		<?php endif; ?>
+	</ul>
+<?php endif; ?>

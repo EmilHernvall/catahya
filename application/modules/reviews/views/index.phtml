@@ -1,0 +1,39 @@
+<?php
+$this->title = 'Recensioner';
+$this->navigation = array('Recensioner');
+?>
+<div class="leftColumn">
+	<?php $i = 0; ?>
+	<?php while(($text = array_shift($this->latest)) && $i++ < 4): ?>
+		<h3><a href="/reviews/index/view?textid=<?php echo $text['text_id']; ?>"><?php echo htmlspecialchars($text['text_title']); ?></a></h3>
+		<div style="font-style: italic;">
+			<?php echo standardDate($text['text_timestamp'], false); ?> 
+			av <a href="/profile/<?php echo $text['member_flatalias']; ?>"><?php echo $text['member_alias']; ?></a>
+		</div>
+		<p style="padding-bottom: 10px;">
+			<?php /*if ($text["image_id"]): ?>
+				<img src="/userdata/text/thumbs/<?php echo $text["image_id"]; ?>.jpg" style="margin-left: 5px; float: right;" />
+			<?php endif;*/ ?>
+			<?php echo $text["text_pretext"] ? outputFormat($text["text_pretext"]) : outputParagraph($text['text_text']); ?>
+		</p>
+		<div class="clear">&nbsp;</div>
+	<?php endwhile; ?>
+</div>
+<div class="rightColumn">
+	<h3>Sök</h3>
+	
+	<input type="text" style="width: 180px;" /> <input type="submit" value="Sök" />
+	
+	<h3 style="margin-top: 10px;">Tidigare recensioner</h3>
+	<dl class="events">
+	<?php foreach($this->latest as $text): ?>
+		<dt><a href="/reviews/index/view?textid=<?php echo $text['text_id']; ?>"><?php echo htmlspecialchars($text['text_title']); ?></a></dt>
+		<dd>
+			<?php echo standardDate($text['text_timestamp'], false); ?>
+			av <a href="/profile/<?php echo $text['member_flatalias']; ?>"><?php echo $text['member_alias']; ?></a>
+		</dd>
+	<?php endforeach; ?>
+	</dl>
+</div>
+
+<div style="clear: both;">&nbsp;</div>

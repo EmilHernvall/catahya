@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Catahya</title>
+	<meta name="http-equiv" value="Content-type: text-html;charset=utf-8" />
+	<style type="text/css">
+		html, body {
+			font-family: verdana;
+		}
+
+		#wrapper {
+			width: 300px;
+			
+			margin-left: auto;
+			margin-right: auto;
+			
+		}
+		
+		h1 {
+			text-align: center;
+		}
+		
+		form label {
+			display: block;
+			float: left;
+			width: 100px;
+			margin-top: 8px;
+			font-size: 12px;
+			line-height: 15px;
+		}
+		
+		form input {
+			display: block;
+			float: right;
+		}
+		
+		form input.field {
+			margin-top: 5px;
+			border: 1px solid #000;
+			font-size: 12px;
+			height: 15px;
+			width: 180px;
+		}
+	</style>
+</head>
+	
+<body>
+
+	<div id="wrapper">
+
+		<h1>Catahya 2</h1>
+	
+		<?php if (array_key_exists('flash', $_SESSION)): ?>
+			<p>
+				<?php 
+				echo $_SESSION['flash'];
+				unset($_SESSION['flash']);
+				?>
+			</p>
+		<?php endif; ?>
+		
+		<form method="post" action="/index/loginCommit">
+			<label for="username">Användarnamn</label>
+			<input type="text" name="username" id="username" class="field" />
+			
+			<label for="password">Lösenord</label>
+			<input type="password" name="password" id="password" class="field" />
+			
+			<br style="clear: both;" /><br />
+			
+			<input type="submit" value="Logga in" />
+			
+		</form>
+
+		<br style="clear: both;" /><br />
+	</div>
+
+</body>
+</html>

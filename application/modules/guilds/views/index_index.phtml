@@ -1,0 +1,45 @@
+<?php
+$this->title = 'Gillen';
+$this->navigation = array('Gillen', 'Index');
+?>
+
+<?php 
+$lastType = "";
+$i = 0;
+foreach ($this->guilds as $guild): 
+	if ($guild["guild_type"] == "hidden") {
+		continue;
+	}
+	
+	if ($lastType != $guild["guild_type"]) {
+		switch ($guild["guild_type"]) {
+			case "general":
+				echo '<h3 class="bannerHeader">Gillen</h3>';
+				break;
+			case "catahya":
+				echo '<h3 class="bannerHeader">Råd</h3>';
+				break;
+			case "official":
+				echo '<h3 class="bannerHeader">Officiella</h3>';
+				break;
+			default:
+				continue;
+		}
+	}
+	?>
+	<div style="padding: 5px; background-color: <?php echo ($i&1) == 0 ? "#C0D4B0" : "#fff"; ?>">
+		<h4><a href="/guilds/<?php echo $guild['guild_id']; ?>"><?php echo htmlspecialchars($guild['guild_name']); ?></a></h4>
+		<div style="margin-bottom: 5px; padding-left: 15px;">
+			<p>
+				<?php echo outputTruncated($guild['guild_description'], 300); ?>
+			</p>
+			
+			<div style="margin-top: 10px; font-style: italic;">
+				Grundat <?php echo standardDate($guild["guild_confirmed"]); ?>. <?php echo $guild["guild_membercount"]; ?> medlemmar.
+			</div>
+		</div>
+	</div>
+	<?php 
+	$lastType = $guild["guild_type"];
+	$i++;
+endforeach; ?>

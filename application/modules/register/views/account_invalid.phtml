@@ -1,0 +1,92 @@
+<?php
+$this->title = "Felaktiga uppgifter";
+?>
+<div class="content">
+	<?php if (!$this->member["auditlog_message"]): ?>
+		Vår granskning har visat att dina uppgifter var felaktigt ifyllda!
+	<?php else: ?>
+		<?php echo $this->member["auditlog_message"]; ?>
+	<?php endif; ?>
+</div>
+
+<div class="content">
+
+	<form method="post" action="/register/account/confirmCommit" class="stdForm">
+
+		<div class="field">
+			<label for="alias">Användarnamn</label>
+			<div class="textField">
+				<?php echo $this->member["member_alias"]; ?>
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="email">E-post</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->member["member_email"]); ?>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="pass">Förnamn</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->member["member_firstname"]); ?>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="surname">Efternamn</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->member["member_surname"]); ?>
+			</div>
+		</div>
+
+		<div class="field">
+			<label for="address">Gatuadress</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->member["member_address"]); ?>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="zipcode">Postnummer</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->member["member_zipcode"]); ?>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="city">Ort</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->member["member_city"]); ?>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="country">Land</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->member["member_country"]); ?>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="phone">Telefonnummer</label>
+			<div class="textField">
+				<?php echo htmlspecialchars($this->member["member_phonenr"]); ?>
+			</div>
+		</div>
+		
+		<div class="button">
+			<button type="submit">Ja, jag vill korrigera uppgifterna.</button>
+		</div>
+		
+	</form>
+	
+	<form method="post" action="/register/account/deleteCommit" class="stdForm">
+	
+		<div class="button">
+			<button type="submit">Nej, jag vill ta bort mitt konto.</button>
+		</div>
+		
+	</form>
+</div>

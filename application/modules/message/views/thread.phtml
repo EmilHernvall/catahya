@@ -1,0 +1,92 @@
+<?php
+$this->title = htmlspecialchars($this->message['thread_title']);
+$this->navigation = array('Community', 'Meddelanden');
+$this->css[] = '/css/pages/message_thread.css';
+?>
+
+<div class="message">
+	<dl>
+		<?php foreach ($this->members as $member): ?>
+		<dt>
+			<?php if ($member["thread_role"] == "s"): ?>
+				Från:
+			<?php else: ?>
+				Till:
+			<?php endif; ?>
+			<a href="/profile/<?php echo $member['member_flatalias']; ?>"><?php echo $member['member_alias']; ?></a>
+		</dt>
+		<?php endforeach; ?>
+		<dt style="margin-top: 10px;">
+			Datum: <span style="font-weight: normal;"><?php echo standardDate($this->message['thread_timestamp'],false); ?></span>
+		</dt>
+		<dt>
+			Tid: <span style="font-weight: normal;"><?php echo date('H:i', $this->message['thread_timestamp']); ?></span>
+		</dt>
+	</dl>
+	
+	<div class="msgText">
+		<?php echo outputFormat($this->message['thread_text']); ?>
+	</div>
+	
+	<br style="clear: both;" />
+</div>
+	
+<?php foreach ($this->replies as $i => $reply): ?>
+	<div class="message" style="background-color: <?php echo ($i&1) == 0 ? '#C0D4B0' : '#FFF'; ?>">
+		<dl>
+			<dt>
+				<a href="/profile/<?php echo $reply['member_flatalias']; ?>"><?php echo $reply['member_alias']; ?></a>
+			</dt>
+			<dt>
+				Datum:
+				<span style="font-weight: normal;"><?php echo standardDate($reply['reply_timestamp'], false); ?></span>
+			</dt>
+			<dt>
+				Tid:
+				<span style="font-weight: normal;"><?php echo date('H:i', $reply['reply_timestamp']); ?></span>
+			</dt>
+		</dl>
+		<div class="msgText">
+			<?php echo outputFormat($reply['reply_text']); ?>
+		</div>
+		
+		<br style="clear: both;" />
+	</div>
+<?php endforeach; ?>
+
+<h3 class="bannerHeader">Skriv nytt svar</h3>
+<?php flash(); ?>
+<div class="content">
+	<form method="post" action="/message/thread/replyCommit" class="stdForm">
+		<input type="hidden" name="threadid" value="<?php echo $this->message['thread_id']; ?>" />
+		
+		<div class="field">
+			<label for="to">Till</label>
+			<div class="textField">
+				<?php 
+				$i = 0;
+				foreach ($this->members as $member) {
+					if ($member["member_id"] == $_SESSION["id"]) {
+						continue;
+					}
+
+					if ($i != 0) echo ", ";
+					printf('<a href="/profile/%s">%s</a>', $member['member_flatalias'], $member['member_alias']);
+					$i++;
+				}
+				?>
+			</div>
+		</div>
+		
+		<div class="field">
+			<label for="text">Meddelande</label>
+			<div class="textField">
+				<textarea name="text" id="text" rows="10"></textarea>
+			</div>
+		</div>
+		<div class="button">
+			<button type="submit">Skicka</button>
+		</div>
+	</form>
+
+</div>

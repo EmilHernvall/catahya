@@ -1,0 +1,58 @@
+<?php
+$this->navigation = array('Inställningar');
+$this->title = 'Avatar';
+?>
+
+<h3 class="bannerHeader">Ladda upp avatar</h3>
+<div class="content">
+	
+	<p>
+		Bilden får inte vara större än 200kb. Olämpliga bilder kommer att rensas bort.
+		Ifall du undrar hurvida bilden är olämplig eller inte, så innebär det förmodligen
+		att den är det.
+	</p>
+
+	<?php flash(); ?>
+	
+	<form method="post" action="/settings/avatar/avatarcommit" class="stdForm" enctype="multipart/form-data">
+		<div class="field">
+			<label for="image">Bild</label>
+			<input type="file" name="image" id="image" />
+		</div>
+		
+		<div class="button">
+			<button type="submit">Ladda upp</button>
+		</div>
+	</form>
+</div>
+
+<h3 class="bannerHeader">Tidigare avatars</h3>
+<table class="default">
+	<tr>
+		<th class="left">Bild</th>
+		<th>Namn</th>
+		<th>Uppladdad</th>
+		<th>&nbsp;</th>
+	</tr>
+	<?php if (count($this->avatars) == 0): ?>
+		<tr>
+			<td colspan="4" style="padding: 20px; text-align: center; font-size: 1.2em;">
+				Inga avatars!
+			</td>
+		</tr>
+	<?php endif; ?>
+	<?php foreach ($this->avatars as $i => $avatar): ?>
+		<tr <?php if ($avatar["avatar_current"]) echo 'style="background-color: #faa;"'; ?> class="<?php echo ($i&1) == 0 && !$avatar["avatar_current"] ? "even" : "odd"; ?>">
+			<td class="left" style="width: 100px;"><img src="/userdata/avatars/100/<?php echo $avatar["avatar_id"]; ?>.jpg" /></td>
+			<td><?php echo htmlspecialchars($avatar["avatar_name"]); ?></td>
+			<td><?php echo standardDate($avatar["avatar_timestamp"]); ?></td>
+			<td>
+				<?php if ($avatar["avatar_current"]): ?>
+					Används!
+				<?php else: ?>
+					&raquo; <a href="/settings/avatar/switchcommit?avatarid=<?php echo $avatar["avatar_id"]; ?>">Använd</a>
+				<?php endif; ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>

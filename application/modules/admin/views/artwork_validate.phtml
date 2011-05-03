@@ -1,0 +1,43 @@
+<?php
+$this->title = 'Validera texter';
+$this->navigation = array('Administration', 'Alster');
+?>
+<div class="content">
+	Endast de alster-typer som har texter som v&auml;ntar p&aring; validering &auml;r synliga h&auml;r.
+</div>
+
+<?php $lastType = 0; ?>
+<?php foreach ($this->artworks as $artwork): ?>
+
+	<?php if ($lastType != $artwork["type_id"]): ?>	
+		<?php if ($lastType != 0): ?>
+			</table>
+		<?php endif; ?>
+		<h3 class="bannerHeader"><?php echo htmlspecialchars($artwork["type_title"]); ?></h3>
+		<table class="default">
+		<tr>
+			<th class="left">Titel</th>
+			<th>Medlem</th>
+			<th>Inskickad</th>
+			<th>Subtyp</th>
+			<th>Spr&aring;k</th>
+			<th>&nbsp;</th>
+		</tr>
+	<?php endif; ?>
+
+	<tr>
+		<td class="left"><?php echo htmlspecialchars($artwork["artwork_title"]); ?></td>
+		<td><?php printf('<a href="/profile/%s">%s</a>', $artwork["member_flatalias"], $artwork["member_alias"]); ?></td>
+		<td><?php echo standardDate($artwork["artwork_timestamp"]); ?></td>
+		<td><?php echo htmlspecialchars($artwork["subtype_title"]); ?></td>
+		<td><?php echo htmlspecialchars($artwork["language_title"]); ?></td>
+		<td>
+			&raquo; <a href="/admin/artwork/validatecommit?id=<?php echo $artwork["artwork_id"]; ?>">Validera</a>
+		</td>
+	</tr>
+	<?php $lastType = $artwork["type_id"]; ?>
+<?php endforeach; ?>
+
+<?php if (count($this->artworks)): ?>
+</table>
+<?php endif; ?>

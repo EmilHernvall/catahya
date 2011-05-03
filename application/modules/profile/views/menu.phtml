@@ -1,0 +1,28 @@
+<?php
+$this->js[] = "/js/lightbox/lightbox.js";
+$this->css[] = "/js/lightbox/lightbox.css";
+?>
+<div class="body" style="text-align: center;">
+	<a href="/userdata/avatars/large/<?php echo $this->member['member_photo']; ?>" rel="lightbox">
+		<img src="/userdata/avatars/100/<?php echo $this->member['member_photo']; ?>" style="border: 0;" />
+	</a>
+</div>
+
+<ul class="navMenu" style="margin-top: 10px;">
+	<li><a href="/profile/<?php echo $this->member['member_flatalias']; ?>">Personligt</a></li>
+	<li><a href="/profile/<?php echo $this->member['member_flatalias']; ?>/character">Karaktär</a></li>
+	<li>Statistik</li>
+	<li><a href="/profile/<?php echo $this->member['member_flatalias']; ?>/guestbook">Gästbok</a></li>
+	<li><a href="/profile/<?php echo $this->member['member_flatalias']; ?>/relation">Relationer</a></li>
+	<!--<li>Blogg</li>-->
+</ul>
+
+<?php if ($this->showOptions && $_SESSION["online"] && $this->member["member_id"] != $_SESSION["id"]): ?>
+	<h4 style="margin-top: 10px;">Alternativ</h4>
+	<ul class="navMenu">
+		<li><a href="/message/thread/write?to=<?php echo urlencode($this->member['member_alias']); ?>">Skicka meddelande</a></li>
+		<?php if (!$this->hasRelation): ?>
+			<li><a href="/profile/<?php echo $this->member['member_flatalias']; ?>/relation/create">Bli vän med</a></li>
+		<?php endif; ?>
+	</ul>
+<?php endif; ?>

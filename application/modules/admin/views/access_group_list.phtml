@@ -1,0 +1,29 @@
+<?php
+$this->title = 'Grupper';
+$this->navigation = array('Administration', 'Behörigheter'); 
+?>
+
+<?php flash(); ?>
+
+<table class="default">
+	<colgroup>
+		<col />
+		<col />
+	</colgroup>
+	<tr>
+		<th class="left">Namn</th>
+		<th>Medlemmar</th>
+	</tr>
+	<?php foreach ($this->groups as $i => $group): ?>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left"><a href="/admin/access/groupedit?groupid=<?php echo $group['group_id']; ?>"><?php echo htmlspecialchars($group['group_title']); ?></a></td>
+			<td>Visa</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+	
+<div class="content">
+	<p>
+		<a href="/admin/access/groupedit">Skapa ny grupp</a>
+	</p>
+</div>

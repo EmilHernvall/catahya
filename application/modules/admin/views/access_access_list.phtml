@@ -1,0 +1,38 @@
+<?php
+$this->title = 'Behörigheter';
+$this->navigation = array('Administration', 'Behörigheter'); 
+?>
+	
+<?php flash(); ?>
+
+<table class="default">
+	<colgroup>
+		<col />
+		<col width="25%" />
+		<col width="25%" />
+	</colgroup>
+	<tr>
+		<th class="left">Titel</th>
+		<th>Namn</th>
+		<th>Objekt</th>
+	</tr>
+	<?php foreach ($this->access as $i => $access): ?>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left"><a href="/admin/access/accessedit?accessid=<?php echo $access['access_id']; ?>"><?php echo htmlspecialchars($access['access_title']); ?></a></td>
+			<td><?php echo htmlspecialchars($access['access_name']); ?></td>
+			<td>
+				<?php if ($access['object_id']): ?>
+					<a href="/admin/access/accesspermission?accessid=<?php echo $access['access_id']; ?>"><?php echo htmlspecialchars($access['object_title']); ?></a>
+				<?php else: ?>
+					&nbsp;
+				<?php endif; ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+	
+<div class="content">
+	<p>
+		<a href="/admin/access/accessedit">Skapa ny behörighet</a>
+	</p>
+</div>

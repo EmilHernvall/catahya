@@ -1,0 +1,61 @@
+<?php
+$this->title = htmlspecialchars($this->guild["guild_name"]);
+$this->navigation = array('Gillen');
+$this->js[] = "/js/lightbox/lightbox.js";
+$this->css[] = "/js/lightbox/lightbox.css";
+?>
+
+<div class="leftColumn">
+
+	<?php if ($this->guild["guild_haslogo"]): ?>
+		<div style="text-align: center;">
+			<a href="/userdata/guild/large/<?php echo $this->guild["guild_id"]; ?>.jpg" rel="lightbox">
+				<img src="/userdata/guild/thumb/<?php echo $this->guild["guild_id"]; ?>.jpg" style="border: 0;" />
+			</a>
+		</div>
+	<?php endif; ?>
+
+	<h3>Beskrivning</h3>
+	<p>
+		<?php echo outputFormat($this->guild["guild_description"]); ?>
+	</p>
+
+	<h3 style="margin-top: 10px;">Text</h3>
+	<p><?php echo outputFormat($this->guild["guild_text"]); ?></p>
+
+	<h3 style="margin-top: 10px;">Krav</h3>
+	<p><?php echo outputFormat($this->guild["guild_requirements"]); ?></p>
+
+	<?php if ($_SESSION["online"] && !$this->member): ?>
+		<p><a href="/guilds/<?php echo $this->id; ?>/request">Ans&ouml;k om att bli medlem</a></p>
+	<?php elseif ($this->member && $this->member["level_id"] == 0): ?>
+		<p style="color: red;">Din ans&ouml;kan behandlas.</p>
+	<?php endif; ?>
+</div>
+
+<div class="rightColumn">
+	<h3>Historik</h3>
+	<div class="content">
+		<ul style="padding: 0; margin: 0; list-style-type: none;">
+			<?php foreach ($this->entries as $entry): ?>
+				<li><?php printf("%s - %s", standardDate($entry["history_timestamp"]), htmlspecialchars($entry["history_description"])); ?></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</div>
+
+<div class="clear">&nbsp;</div>
+<h3 class="bannerHeader">Medlemmar</h3>
+<table class="default">
+	<tr>
+		<th class="left">Namn</th>
+		<th>Titel</th>
+	</tr>
+	<?php foreach ($this->members as $i => $member): 
+		if (!$member["level_id"]) continue; ?>
+		<tr class="<?php echo ($i&1) == 0 ? 'even' : 'odd'; ?>">
+			<td class="left"><?php printf('<a href="/profile/%s">%s</a>', $member["member_flatalias"], $member["member_alias"]); ?></td>
+			<td><?php echo htmlspecialchars($member["level_name"]); ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>
