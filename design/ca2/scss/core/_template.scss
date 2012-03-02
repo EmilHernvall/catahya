@@ -1,0 +1,63 @@
+.page {
+  &:after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("#{$imgpath}/noise.png") repeat 0 0;
+    z-index: 0;
+  }
+  
+  &:before {
+    content: '';
+    display: block;
+    height: 250px;
+    @include background-image(linear-gradient(lighten($bg, 23), $bg));
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.head {
+  @extend .shadow;
+  padding-top: 156px;
+}
+
+.body {
+  background: url("#{$imgpath}/head.png") no-repeat 0 0;
+  @extend .relative;
+  width: 99em;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.foot { 
+  @extend .clearfix; 
+}
+
+.main { 
+  @extend .clearfix; 
+  @extend .unit;
+  width: 49em;
+}
+
+.depnav { 
+  @extend .shadow;
+  @extend .clearfix; 
+  @extend .unit;
+  background: $dark url("#{$imgpath}/raven.png") no-repeat 0 0;
+  width: 15em;
+  margin-right: 1em;
+  padding-top: 251px;
+}
+
+.aside { 
+  @extend .clearfix; 
+  @extend .unit;
+  margin-left: 1em;
+  width: 33em;
+}

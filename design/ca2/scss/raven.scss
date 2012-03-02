@@ -1,0 +1,51 @@
+/*
+
+
+
+            ...                           s                                                     
+         xH88"`~ .x8X                    :8                  .uef^"      ..                     
+       :8888   .f"8888Hf                .88                :d88E        @L                      
+      :8888>  X8L  ^""`        u       :888ooo       u     `888E       9888i   .dL        u     
+      X8888  X888h          us888u.  -*8888888    us888u.   888E .z8k  `Y888k:*888.    us888u.  
+      88888  !88888.     .@88 "8888"   8888    .@88 "8888"  888E~?888L   888E  888I .@88 "8888" 
+      88888   %88888     9888  9888    8888    9888  9888   888E  888E   888E  888I 9888  9888  
+      88888 '> `8888>    9888  9888    8888    9888  9888   888E  888E   888E  888I 9888  9888  
+      `8888L %  ?888   ! 9888  9888   .8888Lu= 9888  9888   888E  888E   888E  888I 9888  9888  
+       `8888  `-*""   /  9888  9888   ^%888*   9888  9888   888E  888E  x888N><888' 9888  9888  
+         "888.      :"   "888*""888"    'Y"    "888*""888" m888N= 888>   "88"  888  "888*""888" 
+           `""***~"`      ^Y"   ^Y'             ^Y"   ^Y'   `Y"   888          88F   ^Y"   ^Y'  
+                                                                 J88"         98"               
+                                                                 @%         ./"                 
+                                                               :"          ~`
+    
+*/
+
+@import "Compass";
+
+    $imgpath:                   '/img';
+
+    $bg:                        #4d5a47;
+    $text:                      #333;
+    $aside:                     #34402e;
+    $ribbon:                    #313d29;
+    $dark:                      #1b1b1b;
+    $sand:                      #f6e68b;
+    $aside-dot:                 #6f6d6d;
+    $border:                    #e6e7e5;
+    $depnavlabel:               #9ac797;
+    $first-letter:              #687f66;
+    $darkarrow:                 #677b5c;
+
+// core
+@import 'core/content';
+@import 'core/grid';
+@import 'core/template';
+@import 'core/box';
+@import 'core/heading';
+@import 'core/spacing';
+
+// plugins
+@import 'plugins/teaser';
+@import 'plugins/newslist';
+@import 'plugins/nav';
+@import 'plugins/form';

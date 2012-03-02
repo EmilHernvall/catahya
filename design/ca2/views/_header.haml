@@ -1,0 +1,26 @@
+.visuallyhidden
+  :markdown 
+    Gå direkt till [innehåll](#main), [avdelningsmeny](#depnav) eller [inloggning](#aside)
+
+%header.head
+  %a.visuallyhidden{ :href => '/', :rel => 'home' } Catahya.net
+  
+  %nav.nav-main{ :role => "navigation" }
+    %ul.clearfix
+      %li.unit
+        %a.nav-item{ :href => '/recensioner' } Recensioner
+      %li.unit
+        %strong
+          %a.nav-item-selected{ :href => '/kronikor' } Krönikor
+      %li.unit
+        %a.nav-item{ :href => '/alster' } Alster
+  
+  %aside.depnav
+    .nav-aside
+      .depnav-label Meny
+      %ul.mod
+        %li.item
+          %strong
+            %a.asidenav-item-selected{ :href => '/' } Index
+        %li.item
+          %a.asidenav-item{ :href => '/omrostningar' } Omröstningar
