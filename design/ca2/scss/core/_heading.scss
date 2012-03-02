@@ -1,0 +1,169 @@
+//
+//  Labels
+//
+
+.depnav-label {
+  @extend .item-serif-110;
+  color: $depnavlabel;
+}
+
+.list-label {
+  font: italic 110%/1 Georgia, serif;
+  margin-top: 4px;
+}
+
+//
+//  Items
+//
+
+.inline-item {
+  &:link, &:visited {
+    color: #000;
+    @include transition(background-color 0.5s ease-out);
+  }
+
+  &:hover, &:focus {
+    background: lighten($sand, 10);
+  }
+}
+
+.blocklink {
+  display: block;
+  
+  &:link, &:visited {
+    color: $text;
+  }
+}
+
+.more {
+  &:after {
+    content: ' »';
+  }
+}
+
+.aside-item {
+  @extend .sansserif-110;
+  display: block;
+  
+  &:link, &:visited {
+    color: $sand;
+  }
+}
+
+//
+//  Ca2 logo
+//
+
+.me {
+  @extend .ir;
+  @extend .transition;
+  
+  position: absolute;
+  top: 32px;
+  left: 0;
+  background-image: url("#{$imgpath}/logo.png");
+  width: 282px;
+  height: 152px;
+  
+  &:hover, &:focus {
+    opacity: .8;
+  }
+}
+
+//
+//  Aside
+//
+
+.aside-heading {
+  @extend .item-serif-110;
+  
+  color: #fff;
+  background: $ribbon;
+  @include background-image(linear-gradient($ribbon, $ribbon 50%, darken($ribbon, 3) 50%, $ribbon));
+  padding-left: 7px;
+  margin-top: 10px;
+  padding-top: 2px;
+  
+  &:before {
+    float: left;
+    content: '·';
+    color: $aside-dot;
+    font-size: 200%;
+    padding-right: 7px;
+  }
+}
+
+//
+//  article
+//
+
+.art-heading {
+  font: bold small-caps 300%/1.2 'Palatino Linotype', Palatino, Georgia, serif;
+  padding-top: 4px;
+  letter-spacing: -0.033em;
+  margin-bottom: 12px;
+  
+  > b, > em {
+    font: normal 1.2em/1.2 Zapfino,"Zapfino One","Zapfino Two","Zapfino Three",Gabriola,"Zapf Chancery","Zapf Chancery Medium Italic","ITC Zapf Chancery","ITC Zapf Chancery Medium Italic","Zurich Calligraphic","Apple Chancery","Segoe Script","Lucida Handwriting","Lucida Calligraphy","URW Chancery L","URW Chancery L Medium Italic","Caflisch Script",Poetica,Sanvito,"Ex Ponto",Poetica,Shelley,Kaufmann,"Monotype Corsiva",Corsiva,Chancery,Sand,Textile,Mead,Script,cursive;
+    color: $first-letter;
+    padding-right: 4px;
+    position: relative;
+    top: .3em;
+  }
+}
+
+.art-superheading {
+  font: normal 130%/15px 'Palatino Linotype', Palatino, Georgia, serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.art-head-aside {
+  font: normal 102%/13px 'Palatino Linotype', Palatino, Georgia, serif;
+  padding-top: 2px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  
+  &, &:link, &:visited {
+    color: $bg;
+  }
+}
+
+.art-foot-aside {
+  @extend .item-serif-110;
+  line-height: 13px;
+  letter-spacing: .1em;
+}
+
+//
+//  Login
+//
+
+.memberteaser {
+  @extend .item-serif-110;
+  line-height: 28px;
+  padding-top: 5px;
+  color: $sand;
+}
+
+.become-member {
+  @extend .unitR;
+  color: #fff;
+  font: italic bold 150%/33px Georgia, serif;
+  letter-spacing: 1px;
+  
+  &:after {
+    content: ' »';
+    color: $darkarrow;
+  }
+}
+
+.login-item {
+  @extend .aside-item;
+}
+
+.list-item {
+  @extend .aside-item;
+  margin-left: 12px;
+  margin-bottom: 3px;
+}

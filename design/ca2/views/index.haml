@@ -1,0 +1,42 @@
+#main.main{ :role => "main" }
+  %article.art
+    %header.hd-art
+      %h1.unit.art-superheading Startsidan
+      %p.unitR.art-head-aside Catahya » Startsidan
+      
+    %h2.art-heading 
+      \ <b>V</b>älkommen till Catahya 2.0!
+    
+    .rich.art-pream
+      :markdown
+        Det här är en [beta](http://sv.wikipedia.org/wiki/beta)!
+        
+        Catahya är sidan för alla som gillar fantasy, science fiction och skräck. Här finns ständigt nya recensioner, nyheter, noveller och dikter och en stor samling av [artiklar och andra texter](/sdsds) om fantastik i alla dess former: litteratur, film, musik och spel. I vårt forum kan man snacka med likasinnade från hela landet - gräva ner sig i diskussioner, tävla, leka och lära känna nya människor. 
+
+        Catahya finns inte bara på nätet. Vi ger ut fantastikböcker och ordnar spelkvällar och andra medlemsträffar. Catahya är också en demokratisk förening som är medlem i Sverok, Sveriges roll- och konfliktspelsförbund. 
+        
+    %footer.ft-art
+      %p.unitR.art-foot-aside
+        Uppdaterad 2009.10.11  
+
+  %section.art.hfeed
+    %header.hd-art
+      %h2.unit.art-superheading Senaste bokrecensionen
+      %a.unitR.art-head-aside.more{ :href => '/recensioner' } Fler recensioner 
+    
+    - @book_reviews.each do |review|
+      %article.hentry
+        %a.blocklink.bd{ :href => '/recensioner/visa' }
+          %img.media{ :src => 'http://placekitten.com/g/140/170', :alt => '' }
+          %h3.art-heading= review[:title]
+          %p.rich.art-pream= review[:preamble]
+        %footer.ft-art
+          .unitR.art-foot-aside
+            Av 
+            %a.inline-item{ :href => 'sdsdsdsdsd'}= review[:author]
+            den 
+            =review[:date]
+  
+.aside{ :role => "complementary" }
+  = partial("login")
+  = partial("news")

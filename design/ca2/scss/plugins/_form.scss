@@ -1,0 +1,58 @@
+.txt-fld {
+  font-size: 120%;
+  margin-right: 7px;
+  margin-bottom: 6px;
+  border: 1px solid $aside;
+  border-color: darken($aside, 20) lighten($aside, 20) lighten($aside, 20) darken($aside, 20);
+  padding: 3px 6px;
+  @include background-image( linear-gradient(#ccc, #fff 66%, #fff) );
+}
+
+.btn {
+  line-height: 1;
+  font-size: 120%;
+  padding: 5px 11px;
+  border-radius: 7px;
+  background: $ribbon;
+  border: 0;
+  display: inline-block;
+  color: #fff;
+  @include box-shadow(0 1px 3px rgba(0, 0, 0, .33));
+  @include background-image( linear-gradient(lighten($ribbon, 33), $ribbon));
+  
+  &:active {
+    @include background-image( linear-gradient($ribbon, lighten($ribbon, 33)));
+    position: relative;
+    top: 1px;
+  }
+}
+
+::-webkit-input-placeholder {
+  line-height: 22px;
+  display: block;
+  padding-top: 4px;
+  text-indent: 6px;
+  font-style: italic;
+}
+
+:-moz-placeholder {
+  padding-top: 4px;
+  display: block;
+  line-height: 22px;
+  text-indent: 6px;
+  font-style: italic;  
+}
+
+.username {
+  @extend .txt-fld;
+  width: 115px;
+}
+
+.passwd {
+  @extend .txt-fld;
+  width: 85px;
+}
+
+input[type=submit] {
+  @extend .btn;
+}
