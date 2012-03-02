@@ -1,0 +1,57 @@
+//
+//  Main nav
+//
+
+.nav-main {
+  padding-left: 126px;
+  background-color: $ribbon;
+  @include background-image(linear-gradient($ribbon, $ribbon 50%, darken($ribbon, 5) 50%, $ribbon));
+}
+
+  .nav-item {
+    @extend .relative;
+    @extend .item-serif-150;
+    height: 30px;
+    padding: 0 12px;
+    margin-right: 1px;
+    display: block;
+    
+    &:link, &:visited {
+      color: #fff;
+    }
+    
+    &:hover, &:focus {
+      background: lighten($ribbon, 3);
+    }
+  }
+
+  .nav-item-selected {
+    @extend .nav-item;
+    
+    &:link, &:visited, &:hover, &:focus {
+      background: rgba(0, 0, 0, .66);
+    }
+  }
+
+//
+//  Aside nav
+//
+
+.asidenav-item {
+  @extend .item-serif-150;
+  color: $sand;
+  line-height: 133%;
+  
+  &:before {
+    content: "» ";
+    color: darken($aside-dot, 12);
+  }
+}
+
+.asidenav-item-selected {
+  @extend .asidenav-item;
+  
+  &:link, &:visited {
+    color: #fff;
+  }
+}

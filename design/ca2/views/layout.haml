@@ -1,0 +1,13 @@
+!!! 5
+/[if lt IE 8 ] <html class="oldie">
+/ [if (gte IE 9)|!(IE)]><!
+%html
+  / <![endif]
+  %head
+    %meta{ :charset => "utf-8" }
+    %title Raven Preview
+    %link{ :rel => 'stylesheet', :href => '/css/raven.css' }
+  %body.page
+    .body.clearfix
+      = partial "header"
+      = yield

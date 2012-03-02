@@ -1,0 +1,22 @@
+%section#login.mod-aside
+  %header.hd
+    %h2.aside-heading Inloggning
+  .bd-aside
+    %p.unit.memberteaser Gratis medlemskap! 
+    %a.become-member{ :href => '/registrera' } Bli medlem nu
+  .login
+    %form.line{ :method => 'post', :action => '/' }
+      .unit
+        %label.visuallyhidden{ :for => 'username' } Användarnamn
+        %input#username.username{ :type => 'text', :placeholder => 'Användarnamn' }
+      .unit
+        %label.visuallyhidden{ :for => 'passwd' } Lösenord
+        %input#passwd.passwd{ :type => 'password', :placeholder => 'Lösenord' }
+      .unitR
+        %input{ :type => 'submit', :value => 'Logga in' }
+    %footer
+      %ul.line.clearfix
+        %li.unit
+          %a.aside-item{ :href => 'glomtlosenord' } Glömt lösenord?
+        %li.unitR
+          %a.aside-item{ :href => 'cookies' } Om Cookies

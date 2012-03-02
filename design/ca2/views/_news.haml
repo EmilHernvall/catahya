@@ -1,0 +1,8 @@
+%section.mod-aside
+  %header.hd
+    %h2.aside-heading Nyheter
+  %dl.bd-aside
+    - @news_list.each do |news|
+      %dt.list-label= news[:date]
+      %dd
+        %a.list-item{ :href => "/nyheter/visa" }= news[:title]

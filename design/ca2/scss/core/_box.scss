@@ -1,0 +1,72 @@
+.mod {
+  @extend .clearfix;
+  margin: 0;
+  padding: 0;
+}
+
+.bd { @extend .clearfix; }
+
+.unitR { float: right; }
+
+.media {
+  padding: 4px;
+  border: 1px solid darken($border, 10);
+  margin: 0 0 10px 17px;
+  float: right;
+}
+
+.hentry + .hentry {
+  margin-top: 17px;
+}
+
+.login {
+  background: $aside;
+  color: #fff;
+  padding: 7px 7px 4px;
+}
+
+.nav-aside {
+  @extend .list;
+  list-style: none;
+  padding: 2px 7px 7px;
+}
+
+//
+//  Aside
+//
+
+.mod-aside {
+  @extend .shadow;
+}
+
+  .bd-aside {
+    @extend .clearfix;
+    padding: 4px 7px;
+    background-color: $dark;
+    color: #fff;
+  }
+
+//
+//  Art
+//
+
+.art {
+  @extend .shadow;
+  background: #fff;
+  padding: 3px 16px;
+  margin: 10px 0;
+}
+
+  .hd-art {
+    @extend .clearfix;
+    border-bottom: 1px solid $border;
+    padding: 5px 0 1px;
+    margin-bottom: 10px;
+  }
+
+  .ft-art {
+    @extend .clearfix;
+    border-top: 1px solid $border;
+    padding: 4px 0;
+    margin-top: 17px;
+  }
